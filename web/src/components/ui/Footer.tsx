@@ -1,0 +1,123 @@
+/*
+ * FooterStrip — four-segment colored strip + links row + copyright.
+ *
+ * PRD §5.2: strip colors: #5B2FC9, #8B5CF6, #C4B5FD, #3B2A7A
+ * PRD §5.4: "FooterStrip: four colored segments, then a row of links and copyright."
+ * PRD §5.4 (SocialRail): on mobile, social links are moved into the footer.
+ *
+ * This is a Server Component — no JS needed.
+ */
+
+import Link from "next/link";
+import { Container } from "./Container";
+import type { Profile } from "@/types";
+
+interface FooterProps {
+  profile: Pick<Profile, "email" | "linkedin" | "github" | "instagram">;
+}
+
+/* The four strip segment colors from PRD §5.2 */
+const STRIP_COLORS = ["#5B2FC9", "#8B5CF6", "#C4B5FD", "#3B2A7A"] as const;
+
+export function Footer({ profile }: FooterProps) {
+  const currentYear = new Date().getFullYear();
+
+  /* Social links — same as SocialRail but rendered inline for mobile */
+  const socialLinks = [
+    { label: "LinkedIn", href: profile.linkedin },
+    { label: "GitHub",   href: profile.github   },
+    { label: "Email",    href: `mailto:${profile.email}` },
+    ...(profile.instagram ? [{ label: "Instagram", href: profile.instagram }] : []),
+  ];
+
+  /* Footer nav links */
+  const footerNav = [
+    { label: "About",   href: "#about"   },
+    { label: "Skills",  href: "#skills"  },
+    { label: "Works",   href: "#works"   },
+    { label: "Contact", href: "#contact" },
+    { label: "Resume",  href: "/resume"  },
+  ];
+
+  return (
+    <footer aria-label="Site footer" className="relative z-10">
+      {/* Four-segment color strip */}
+      <div className="flex h-2 w-full" aria-hidden="true">
+        {STRIP_COLORS.map((color) => (
+          <div
+            key={color}
+            className="flex-1"
+            style={{ background: color }}
+          />
+        ))}
+      </div>
+
+      {/* Main footer content */}
+      <div
+        className="py-12"
+        style={{ background: "var(--color-surface)" }}
+      >
+        <Container className="flex flex-col md:flex-row items-center justify-between gap-6">
+
+          {/* Left: branding */}
+          <div className="text-center md:text-left">
+            <Link
+              href="/"
+              className="text-base font-bold tracking-widest hover:text-accent-soft transition-colors"
+              style={{ color: "var(--color-text)" }}
+            >
+              S<span style={{ color: "var(--color-accent)" }}>.</span>
+            </Link>
+            <p className="text-xs mt-1" style={{ color: "var(--color-faint)" }}>
+              Full-Stack Developer (MERN) · Dhaka, Bangladesh
+            </p>
+          </div>
+
+          {/* Center: nav links */}
+          <nav aria-label="Footer navigation">
+            <ul className="flex flex-wrap justify-center gap-4 list-none">
+              {footerNav.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-xs hover:text-text transition-colors"
+                    style={{ color: "var(--color-faint)" }}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Right: social links (visible on mobile too — SocialRail is hidden on mobile) */}
+          <nav aria-label="Social media links">
+            <ul className="flex items-center gap-4 list-none">
+              {socialLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                    rel="noopener noreferrer"
+                    className="text-xs hover:text-accent-soft transition-colors"
+                    style={{ color: "var(--color-faint)" }}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Container>
+
+        {/* Copyright row */}
+        <p
+          className="text-center text-xs mt-8"
+          style={{ color: "var(--color-faint)" }}
+        >
+          © {currentYear} Shahriar Srabon. Built with Next.js, Express, and MongoDB.
+        </p>
+      </div>
+    </footer>
+  );
+}

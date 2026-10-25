@@ -1,0 +1,30 @@
+# ── Dependencies ───────────────────────────────────────────
+node_modules/
+.npm
+
+# ── Next.js ────────────────────────────────────────────────
+web/.next/
+web/out/
+
+# ── Build outputs ───────────────────────────────────────────
+server/dist/
+
+# ── Environment files (NEVER commit real secrets) ──────────
+.env
+.env.local
+.env.*.local
+server/.env
+web/.env.local
+web/.env.production.local
+
+# ── OS files ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Editor files ───────────────────────────────────────────
+.vscode/settings.json
+*.swp
+
+# ── Logs ───────────────────────────────────────────────────
+*.log
+npm-debug.log*
