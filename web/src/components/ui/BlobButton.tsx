@@ -31,38 +31,13 @@ export function BlobButton({
   onClick,
   className = "",
 }: BlobButtonProps) {
-  /* The blob is positioned absolutely, centered behind the left part of the button */
-  const blobVariants = {
-    rest: { x: -12, scale: 1, opacity: 0.75 },
-    hover: { x: -4, scale: 1.1, opacity: 0.9 },
-  };
-
   const inner = (
     <motion.span
-      className={`relative inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-semibold text-white cursor-pointer select-none overflow-visible shadow-lg shadow-purple-900/30 transition-all ${className}`}
-      initial="rest"
-      whileHover="hover"
+      className={`relative inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-semibold text-white cursor-pointer select-none transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${className}`}
       style={{
         background: "var(--color-accent, #8B5CF6)",
-        isolation: "isolate",
-      }} /* create a new stacking context */
+      }}
     >
-      {/* The blob circle — sits behind the button text */}
-      <motion.span
-        aria-hidden="true"          /* decorative; screen readers skip it */
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/3"
-        variants={blobVariants}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        style={{
-          width: "56px",
-          height: "56px",
-          borderRadius: "50%",
-          /* blob color: #5B2FC9 at 75% opacity (PRD §5.2) */
-          background: "rgba(91, 47, 201, 0.75)",
-          filter: "blur(10px)",
-          zIndex: -1,
-        }}
-      />
       {children}
     </motion.span>
   );
