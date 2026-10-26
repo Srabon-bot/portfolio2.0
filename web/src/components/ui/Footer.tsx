@@ -115,7 +115,7 @@ export function Footer({ profile }: FooterProps) {
           className="text-center text-xs mt-8"
           style={{ color: "var(--color-faint)" }}
         >
-          © {currentYear} Shahriar Srabon. Built with Next.js, Express, and MongoDB.
+          © {currentYear} Shahriar Hossain Srabon. Built with Next.js, Express, and MongoDB.
         </p>
       </div>
     </footer>

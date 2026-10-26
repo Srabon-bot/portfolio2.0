@@ -37,13 +37,13 @@ async function seed() {
   // 2. Seed Profile (PRD §17.1)
   console.log("[Seed] Creating Profile document...");
   await Profile.create({
-    name: "Shahriar Srabon",
+    name: "Shahriar Hossain Srabon",
     displayName: "Srabon",
     role: "Full-Stack Developer (MERN)",
     tagline:
       "I build full-stack web apps with the MERN stack, with a focus on tools that solve real problems for people in Bangladesh.",
-    avatarUrl: "/avatar-placeholder.jpg",
-    photoUrl: "/avatar-placeholder.jpg",
+    avatarUrl: "/avatar.jpg",
+    photoUrl: "/avatar.jpg",
     location: "Dhaka, Bangladesh",
     email: "srabon361@gmail.com",
     linkedin: "https://www.linkedin.com/in/shahriar-hossain-b0589a402/",
@@ -57,13 +57,13 @@ async function seed() {
     currently: {
       building: "This portfolio and its MERN admin CMS",
       learning: "Next.js App Router and modern full-stack patterns",
-      funFact: "Won grand prize at KAIST building voice tech for local mudi dokans",
+      funFact: "Developer by day, Madridista by heart. ⚽",
     },
-    resumeUrl: "/resume",
+    resumeUrl: "/Shahriar_Hossain_Srabon_Resume.pdf",
     resumeUpdatedAt: new Date(),
-    seoTitle: "Shahriar Srabon — Full-Stack Developer (MERN)",
+    seoTitle: "Shahriar Hossain Srabon — Full-Stack Developer (MERN)",
     seoDescription:
-      "Portfolio of Shahriar Srabon, full-stack developer in Dhaka building MERN & Next.js applications.",
+      "Portfolio of Shahriar Hossain Srabon, full-stack developer in Dhaka building MERN & Next.js applications.",
   });
 
   // 3. Seed Skills (PRD §17.2 — MERN first)

@@ -13,14 +13,14 @@ import type { Profile, Skill, Project } from "@/types";
 /* ─── Profile ──────────────────────────────────────────────────────── */
 export const seedProfile: Profile = {
   _id: "seed-profile",
-  name: "Shahriar Srabon",
+  name: "Shahriar Hossain Srabon",
   displayName: "Srabon",
   role: "Full-Stack Developer (MERN)",
   tagline:
     "I build full-stack web apps with the MERN stack, with a focus on tools that solve real problems for people in Bangladesh.",
   /* avatarUrl is served from /public — will be replaced by Cloudinary URL in Phase 3 */
-  avatarUrl: "/avatar-placeholder.jpg",
-  photoUrl: "/avatar-placeholder.jpg",
+  avatarUrl: "/avatar.jpg",
+  photoUrl: "/avatar.jpg",
   location: "Dhaka, Bangladesh",
   email: "srabon361@gmail.com",
   linkedin: "https://www.linkedin.com/in/shahriar-hossain-b0589a402/",
@@ -36,9 +36,9 @@ export const seedProfile: Profile = {
     learning: "Next.js App Router and modern full-stack patterns",
     funFact: "Developer by day, Madridista by heart. ⚽",
   },
-  /* resumeUrl will point to Cloudinary once uploaded in Phase 3 */
-  resumeUrl: undefined,
-  resumeUpdatedAt: undefined,
+  /* resumeUrl points to the public PDF, can be overridden by Cloudinary via admin */
+  resumeUrl: "/Shahriar_Hossain_Srabon_Resume.pdf",
+  resumeUpdatedAt: "2026-10",
   seoTitle: "Srabon — Full-Stack Developer (MERN)",
   seoDescription:
     "Full-stack developer (MERN · Next.js · TypeScript) building web apps that solve real problems for people in Bangladesh. Available for internships and junior roles.",

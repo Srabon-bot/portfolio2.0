@@ -4,8 +4,8 @@ import { getProjects } from "@/lib/api";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 
 export const metadata: Metadata = {
-  title: "All Projects — Shahriar Srabon",
-  description: "Complete list of full-stack, frontend, and machine learning projects by Srabon.",
+  title: "All Projects — Shahriar Hossain Srabon",
+  description: "Complete list of full-stack, frontend, and machine learning projects by Shahriar Hossain Srabon (Srabon).",
 };
 
 export default async function AllProjectsPage() {

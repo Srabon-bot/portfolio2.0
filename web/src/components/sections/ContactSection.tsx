@@ -46,7 +46,6 @@ export function ContactSection({ profile }: ContactSectionProps) {
     setErrorMessage("");
 
     try {
-      const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
       const payload = {
         name: data.get("name"),
         email: data.get("email"),
@@ -54,7 +53,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
         website: data.get("website") || "",
       };
 
-      const res = await fetch(`${apiBase}/contact`, {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
