@@ -4,10 +4,42 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProjectBySlug, getProjects } from "@/lib/api";
 import { Chip } from "@/components/ui/Chip";
+import { TechIcon } from "@/components/ui/TechIcon";
+
+/*
+ * generateStaticParams — pre-render every published project at build time.
+ *
+ * This converts /projects/[slug] from dynamic (ƒ) to static (○), meaning:
+ *  - Case study pages load instantly from the CDN edge — no cold-start wait.
+ *  - If the API is down, Vercel serves the last cached build.
+ *  - New projects added via the API are still reachable (dynamicParams = true)
+ *    and get generated on first request, then cached for 60 s (revalidate).
+ *
+ * PRD §11: "Public pages server-rendered or ISR (revalidate ~60s)."
+ */
+export const revalidate = 60;          /* ISR: rebuild stale pages every 60 s */
+export const dynamicParams = true;     /* allow slugs not in the static list   */
+
+export async function generateStaticParams() {
+  try {
+    const { all } = await getProjects();
+    return all
+      .filter((p) => p.status === "published" && p.slug)
+      .map((p) => ({ slug: p.slug }));
+  } catch {
+    /* Build-time API unavailable — fall back to seed slugs so the build
+       still produces all known case-study pages. */
+    const { seedProjects, seedMlProjects } = await import("@/lib/seed-data");
+    return [...seedProjects, ...seedMlProjects]
+      .filter((p) => p.status === "published")
+      .map((p) => ({ slug: p.slug }));
+  }
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -202,16 +234,27 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             {project.stack.map((tech) => (
               <div
                 key={tech}
-                className="p-4 rounded-xl flex flex-col gap-1"
+                className="p-4 rounded-xl flex items-start gap-3.5 transition-all duration-200 hover:border-violet-500/40"
                 style={{
                   background: "var(--color-surface-2)",
                   border: "1px solid var(--color-border)",
                 }}
               >
-                <span className="text-sm font-bold text-white">{tech}</span>
-                <span className="text-xs" style={{ color: "var(--color-muted)" }}>
-                  Chosen for optimal performance, type safety, and real-time responsiveness.
-                </span>
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.04)",
+                    border: "1px solid var(--color-border)",
+                  }}
+                >
+                  <TechIcon name={tech} size={20} />
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-sm font-bold text-white">{tech}</span>
+                  <span className="text-xs leading-relaxed" style={{ color: "var(--color-muted)" }}>
+                    Selected for optimal production reliability, developer velocity, and responsiveness.
+                  </span>
+                </div>
               </div>
             ))}
           </div>
@@ -252,6 +295,44 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             ))}
           </ul>
         </section>
+
+        {/* ── Visual Gallery / Key Screens ──────────────────────────── */}
+        {project.screenshots && project.screenshots.length > 0 && (
+          <section
+            className="rounded-2xl p-6 md:p-8"
+            style={{
+              background: "var(--color-surface)",
+              border: "1px solid var(--color-border)",
+            }}
+          >
+            <h2
+              className="text-xl md:text-2xl font-bold mb-6 flex items-center gap-2"
+              style={{ color: "var(--color-text)" }}
+            >
+              <span aria-hidden="true">🖼️</span> Visual Showcase &amp; Key Screens
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {project.screenshots.map((img, index) => (
+                <div
+                  key={index}
+                  className="group relative aspect-video rounded-xl overflow-hidden border transition-all duration-300 hover:border-accent-soft"
+                  style={{
+                    borderColor: "var(--color-border)",
+                    background: "var(--color-surface-2)",
+                  }}
+                >
+                  <Image
+                    src={img}
+                    alt={`${project.title} interface preview ${index + 1}`}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* ── Section 4: Setup & How to Run ─────────────────────────── */}
         <section

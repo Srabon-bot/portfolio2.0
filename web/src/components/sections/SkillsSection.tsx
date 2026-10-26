@@ -95,18 +95,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
             Also: ML &amp; data
           </span>
           {groups.mlData.map((skill) => (
-            /* Smaller chips for the secondary row */
-            <span
-              key={skill._id}
-              className="inline-block px-2.5 py-0.5 text-xs rounded-full"
-              style={{
-                background: "var(--color-surface-2)",
-                border: "1px solid var(--color-border)",
-                color: "var(--color-faint)",
-              }}
-            >
-              {skill.name}
-            </span>
+            <Chip key={skill._id} label={skill.name} size="sm" />
           ))}
         </div>
       )}

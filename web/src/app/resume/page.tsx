@@ -94,10 +94,10 @@ export default async function ResumePage() {
               <h3 className="text-base font-bold text-white">
                 B.Sc. in Computer Science &amp; Engineering
               </h3>
-              <span className="text-xs text-faint">2021 — 2025 (Final Semester)</span>
+              <span className="text-xs text-faint">March 2023 — January 2027 (Expected · Final Semester)</span>
             </div>
             <p className="text-sm" style={{ color: "var(--color-muted)" }}>
-              University of Information Technology and Sciences (UITS), Dhaka
+              University of Information Technology &amp; Sciences (UITS), Dhaka
             </p>
           </div>
         </section>

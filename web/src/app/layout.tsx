@@ -17,8 +17,12 @@ const roboto = Roboto({
   display: "swap",             /* show fallback font while Roboto loads */
 });
 
+/* The canonical site URL — used to resolve absolute OG/Twitter image URLs */
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://srabon-portfolio.vercel.app";
+
 /* Default SEO metadata — individual pages can override these */
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),   /* fixes the Next.js metadataBase warning */
   title: {
     default: "Srabon — Full-Stack Developer",
     template: "%s | Srabon",   /* e.g. "About | Srabon" on other pages */
@@ -28,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://srabon.dev",
+    url: SITE_URL,
     siteName: "Srabon's Portfolio",
   },
   robots: {

@@ -19,6 +19,7 @@ import { TopBar }          from "@/components/ui/TopBar";
 import { SocialRail }      from "@/components/ui/SocialRail";
 import { HeroSection }     from "@/components/sections/HeroSection";
 import { AboutSection }    from "@/components/sections/AboutSection";
+import { EducationSection } from "@/components/sections/EducationSection";
 import { SkillsSection }   from "@/components/sections/SkillsSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ContactSection }  from "@/components/sections/ContactSection";
@@ -47,6 +48,7 @@ export default async function HomePage() {
       <main>
         <HeroSection profile={profile} />
         <AboutSection profile={profile} />
+        <EducationSection />
         <SkillsSection skills={skills} />
         <ProjectsSection
           featuredProjects={featured}

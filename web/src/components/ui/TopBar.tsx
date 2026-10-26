@@ -21,10 +21,11 @@ interface TopBarProps {
 
 /* Navigation links in order — their hrefs are section anchors on the home page */
 const navLinks = [
-  { label: "About",   href: "#about"   },
-  { label: "Skills",  href: "#skills"  },
-  { label: "Works",   href: "#works"   },
-  { label: "Contact", href: "#contact" },
+  { label: "About",     href: "#about"     },
+  { label: "Education", href: "#education" },
+  { label: "Skills",    href: "#skills"    },
+  { label: "Works",     href: "#works"     },
+  { label: "Contact",   href: "#contact"   },
 ];
 
 export function TopBar({ profile }: TopBarProps) {
