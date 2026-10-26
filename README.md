@@ -1,143 +1,94 @@
-# Srabon's Portfolio (MERN)
+# BazarDor (বাজার দর) 🛒
 
-A dark, blackish-purple developer portfolio built as a full-stack MERN project. Recruiters get everything in one scroll, and I update projects, skills, my bio and my resume from a private admin dashboard instead of editing code.
-
-> **Status:** in progress. The home page UI is built (Phase 1). The API, admin dashboard and GitHub import are next. See the [roadmap](#roadmap).
+A modern, responsive commodity and grocery price tracking web application for Bangladesh. BazarDor provides consumers with transparent insights into daily market prices, tracking day-to-day rate fluctuations, category-wise breakdowns, and market-by-market comparisons across multiple divisions.
 
 ---
 
-## 1. What it is and who it is for
+## 🌐 Live Demo & Repository
 
-- **For:** recruiters and hiring managers for intern and junior full-stack roles, who often browse on a phone and spend only a short time per portfolio.
-- **What it does:** shows who I am, my skills grouped as frontend, backend and tools, 3 to 4 featured projects with live links and case studies, a contact form, and a one-click resume download.
-- **Why it is dynamic:** all content lives in MongoDB. An admin dashboard lets me add a project (including importing it from a GitHub repo URL), reorder skills, upload a new resume and read messages.
-- **Design:** the structure and feel of [kenjimmy.xyz](https://kenjimmy.xyz/), re-themed in dark purple with my own components.
-
-## 2. Live demo and screenshots
-
-- **Live site:** coming soon
-- **Screenshots:** add them to `docs/screenshots/` and link them here
-
-```
-![Home page](docs/screenshots/home.png)
-![Projects](docs/screenshots/projects.png)
-![Admin dashboard](docs/screenshots/admin.png)
-```
-
-## 3. Tech stack and features
-
-### Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js (App Router), React, TypeScript, Tailwind CSS |
-| Backend | Node.js, Express |
-| Database | MongoDB (Atlas), Mongoose |
-| Auth | JWT in an httpOnly cookie, single admin user |
-| Uploads | Cloudinary (images and resume PDF) |
-| Deployment (planned) | Vercel (web), Render (API), MongoDB Atlas |
-
-The repo is an npm workspaces monorepo with two apps:
-
-```
-portfolio2.0/
-  web/        Next.js frontend
-  server/     Express API
-  docs/       Guides and notes
-  PRD.md      Product requirements document
-```
-
-### Features
-
-Built so far:
-- Home page with hero, About, Skills, Projects, Research and ML strip, Contact and footer
-- Hero "Download resume" button
-- Responsive dark purple design
-
-Planned (see [PRD.md](PRD.md)):
-- Case-study page for every project (value statement, live demo and screenshots, stack and features, setup steps, what I would improve)
-- Admin dashboard with login, CRUD for projects and skills, image and resume uploads
-- Import a project from a GitHub repo URL
-- Contact form that stores messages and emails me
-- Link checker for live and repo URLs
-- SEO metadata, sitemap and Lighthouse 90+ on mobile
-
-## 4. Setup instructions
-
-**Requirements:** Node.js (current LTS), npm, a MongoDB Atlas connection string.
-
-```bash
-# 1. Clone
-git clone https://github.com/Srabon-bot/portfolio2.0.git
-cd portfolio2.0
-
-# 2. Install all workspaces from the root
-npm install
-
-# 3. Create environment files (names only are committed)
-cp server/.env.example server/.env
-cp web/.env.example web/.env.local
-# then fill in the values
-
-# 4. Run the frontend (http://localhost:3000)
-npm run dev:web
-
-# 5. Run the API in a second terminal
-npm run dev:server
-```
-
-Production build of the frontend:
-
-```bash
-npm run build:web
-```
-
-### Environment variables
-
-Check the `.env.example` file in each app for the exact list. The PRD expects these names:
-
-```
-# server
-MONGODB_URI=
-JWT_SECRET=
-ADMIN_EMAIL=
-ADMIN_PASSWORD=            # used only by the seed script
-CLIENT_ORIGIN=
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
-GITHUB_TOKEN=              # optional, avoids GitHub rate limits
-SMTP_USER=
-SMTP_PASS=
-CONTACT_TO_EMAIL=
-REVALIDATE_SECRET=
-
-# web
-NEXT_PUBLIC_API_URL=
-NEXT_PUBLIC_SITE_URL=
-REVALIDATE_SECRET=
-```
-
-Never commit real values. `.env*` files are in `.gitignore`.
-
-## 5. What I would improve
-
-- Finish the API and admin dashboard so every piece of content comes from the database.
-- Add automated tests for the API (auth, validation, GitHub import) and the key UI flows.
-- Add a static fallback of the last good data so the site never shows a blank section when a free-tier API instance is asleep.
-- Replace the placeholder screenshots with real ones and publish a case study for each featured project.
-- Add an optional `/shelf` page for certificates and achievements.
+- **Live Application:** [https://assignment-7-kw2m.vercel.app](https://assignment-7-kw2m.vercel.app/)
+- **GitHub Repository:** [https://github.com/Srabon-bot/Assignment-7](https://github.com/Srabon-bot/Assignment-7)
 
 ---
 
-## Documentation
+## 📖 Project Overview
 
-- [PRD.md](PRD.md): full product requirements and acceptance checklist
-- `docs/`: guides for adding projects from GitHub, the admin dashboard, deployment and the GitHub profile checklist (written as each phase is completed)
+**BazarDor (বাজার দর)** is designed to empower everyday consumers by making grocery price trends accessible and intuitive. The application surfaces essential commodity insights, highlighting items experiencing the highest price increases and steepest drops. Authenticated users can access comprehensive product breakdowns, comparing live rates across various wholesale and retail markets throughout Bangladesh.
 
-## Contact
+---
 
-Shahriar Srabon, Dhaka, Bangladesh
-Email: srabon361@gmail.com
-LinkedIn: https://www.linkedin.com/in/shahriar-hossain-b0589a402/
-GitHub: https://github.com/Srabon-bot
+## 📸 Screenshots
+
+### 🏠 Home Page
+Live price marquee, Bangla calendar date, category navigation, and the daily price risers section.
+
+![Home Page](./home.png)
+
+### 🍚 Category Page
+Category-wise product listing with numeric sorting (Default, Low to High, High to Low).
+
+![Category Page](./category.png)
+
+### 🔐 Sign In
+Email/password authentication with Google and GitHub OAuth options.
+
+![Sign In Page](./signin.png)
+
+### 📊 Product Details (Protected Route)
+Minimum, maximum, and average price summary with a market-wise comparison table.
+
+![Product Details Page](./product-details.png)
+
+---
+
+## 🚀 Key Features
+
+1. **Real-time Price Marquee & Live Bangla Calendar Date:**
+   - Continuous price ticker displaying essential commodity rates, units, and fluctuation badges.
+   - Dynamic Bangla calendar date formatted natively based on Bangladesh Standard Time.
+
+2. **Daily Price Risers & Fallers Breakdown:**
+   - **আজ দাম বেড়েছে ▲:** Dedicated top 6 commodity risers highlighting daily rate increases.
+   - **আজ দাম কমেছে ▼:** Dedicated top 6 commodity fallers highlighting daily price reductions.
+   - All rates and percentage calculations presented using Bengali numerals.
+
+3. **Numeric Category Sorting & Filtering (Challenge C1):**
+   - Category-wise navigation across staples including rice, lentils, vegetables, fish, and meat.
+   - Numerical value-based sorting controls (*Default*, *Price: Low to High*, and *Price: High to Low*) evaluating underlying values accurately rather than lexicographical string comparisons.
+
+4. **Protected Product Details & Market Breakdown:**
+   - Secure route guarding `/product/[slug]` requiring user authentication.
+   - Comprehensive price overview displaying minimum, maximum, and average market rates.
+   - Market-wise comparison table showing price intervals and division details for individual bazaars.
+
+5. **Robust Authentication & Profile Management (Challenge C3):**
+   - Built on Better Auth with MongoDB Atlas supporting email/password, Google, and GitHub OAuth sign-in.
+   - Seamless account linking allowing users with existing accounts to authenticate via social providers.
+   - Profile management interface (`/profile`) with direct name update capabilities (`/profile/update`).
+
+6. **Adaptive Responsive UI & Loading States:**
+   - Fully optimized layouts across mobile, tablet, and desktop screens with DaisyUI and Tailwind CSS.
+   - Dedicated skeleton loaders across Home, Category, Product, and Authentication routes.
+   - Custom 404 error page with fallback navigation back to the homepage.
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+| :--- | :--- |
+| **Next.js (App Router)** | Core framework, partial prerendering & server component architecture |
+| **TypeScript** | Type safety and reliable code structure |
+| **Tailwind CSS v4** | Utility-first responsive styling |
+| **DaisyUI v5** | Accessible UI component primitives |
+| **Better Auth** | Authentication framework with OAuth & session handling |
+| **MongoDB Atlas** | Persistent storage for users, accounts, and sessions |
+| **React Toastify** | Interactive feedback notifications |
+| **react-marquee-text** | Infinite scrolling price ticker strip |
+| **Vercel** | Production hosting and edge deployment |
+
+---
+
+## 👨‍💻 Author
+
+- GitHub: [@Srabon-bot](https://github.com/Srabon-bot)
