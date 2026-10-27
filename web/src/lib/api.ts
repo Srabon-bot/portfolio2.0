@@ -18,7 +18,7 @@ export async function getProfile(): Promise<Profile> {
       const data = await res.json();
       return data;
     }
-  } catch (_) {
+  } catch {
     // Cold start or offline fallback (PRD §15)
   }
   return seedProfile;
@@ -34,7 +34,7 @@ export async function getSkills(): Promise<Skill[]> {
       const data = await res.json();
       return data;
     }
-  } catch (_) {
+  } catch {
     // Fallback
   }
   return seedSkills;
@@ -61,7 +61,7 @@ export async function getProjects(): Promise<{
       const mlProjects = published.filter((p) => p.type === "ml-research");
       return { featured, mlProjects, all: published };
     }
-  } catch (_) {
+  } catch {
     // Fallback
   }
   const publishedSeed = seedProjects.filter(
@@ -87,7 +87,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
     if (res.ok) {
       return await res.json();
     }
-  } catch (_) {}
+  } catch {}
 
   // Fallback to seed
   const found = [...seedProjects, ...seedMlProjects].find((p) => p.slug === slug);

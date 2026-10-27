@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
       },
       { status: 503 }
     );
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Contact API error:", err);
     return NextResponse.json(
       { error: "Internal error. Please try again later." },

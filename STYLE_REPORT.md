@@ -1,0 +1,173 @@
+# Srabon Portfolio — Theme & Style Reference (Hiring Redesign)
+
+> **Copy this entire document into your context** before making any UI or style changes to the codebase.
+> Stack: **Next.js 16 (App Router) · Tailwind CSS v4 · TypeScript · Framer Motion**
+> Root: `d:\Projects\portfolio 2.0\web\`
+
+---
+
+## 1. Tech Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | Next.js 16 (App Router, Server + Client Components, Turbopack) |
+| CSS | Tailwind CSS **v4** (`@import "tailwindcss"` + `@theme inline` — no `tailwind.config.js`) |
+| Fonts | `next/font/google` (Inter, JetBrains Mono, Syne — self-hosted, no runtime request) |
+| Animation | Framer Motion (`motion.div`, `motion.span`, spring & ease micro-interactions) |
+| Icons | Inline SVG only — **strictly no external icon libraries** |
+| Language | TypeScript strict |
+
+---
+
+## 2. Color Palette
+
+All tokens are defined in `web/src/app/globals.css` under `@theme inline` (Tailwind v4) and as CSS variables:
+
+| Token | CSS Variable | Hex | Usage |
+|---|---|---|---|
+| Background | `--color-bg` | `#0A0A0F` | Page background — near-black |
+| Surface | `--color-surface` | `#12121A` | Cards, modals, drawers |
+| Surface 2 | `--color-surface-2` | `#1A1A25` | Chips, inputs, icon badges, secondary containers |
+| Border | `--color-border` | `#262633` | Card, input, divider, and rail borders |
+| Text | `--color-text` | `#F2F2F7` | Primary body text |
+| Muted | `--color-muted` | `#A1A1B5` | Secondary text, descriptions, subtitles |
+| Faint | `--color-faint` | `#8585A0` | Captions, uppercase tags, footer text, rail icons |
+| Accent | `--color-accent` | `#6C47FF` | Primary indigo — button fills, active bars, focus ring |
+| Accent Soft | `--color-accent-soft` | `#A594FF` | Text links, hover states, active indicators |
+| Success | `--color-success` | `#34D399` | **ONLY** for "Open to work" status dot & form success |
+| Danger | `--color-danger` | `#F87171` | **ONLY** for form errors & critical alerts |
+
+> **Removed Token:** `--color-blob` has been removed. Fills use solid `--color-accent` or sleek layered gradients.
+
+### Tailwind Usage
+Usable directly as Tailwind utility classes:
+```
+bg-bg          text-text        bg-surface       border-border
+text-muted     text-faint       text-accent      text-accent-soft
+bg-accent      text-success     text-danger
+```
+
+### Footer Color Strip
+Four decorative segments in the footer top strip:
+`#6C47FF` · `#A594FF` · `#C9BEFF` · `#3A2A8A`
+
+---
+
+## 3. Typography
+
+### Fonts
+Three fonts loaded via `next/font/google` in `layout.tsx`:
+
+| Font | Variable | Weights | Used for |
+|---|---|---|---|
+| **Inter** | `--font-inter` | 400, 500, 600, 700 | Primary sans body font, headings, paragraphs |
+| **JetBrains Mono** | `--font-jetbrains` | 400, 500, 600 | Chip labels, uppercase captions, tech tags, hero stack |
+| **Syne** | `--font-syne` | 700, 800 | TopBar "SRABON" wordmark only |
+
+### Scale & Minimum Size Rules
+- Heading 1: `text-4xl md:text-5xl lg:text-6xl`, font-bold, tracking-tight.
+- Heading 2: `text-2xl md:text-3xl`, font-bold with 34×3px `--color-accent` underline bar.
+- Heading 3: `text-base md:text-lg`, font-bold.
+- Body: `text-base` (16px), line-height 1.6.
+- Small: `text-xs` (12px) — **Minimum size everywhere**. Never use sub-12px (`text-[11px]`).
+
+---
+
+## 4. Layout & Spacing
+
+### Section Order (Hiring-First Hierarchy)
+1. **Hero** (`#hero`) — Introduction, "Open to work" badge, core stack chips, two CTAs.
+2. **Projects** (`#projects`) — Featured 16:9 ProjectCards, problem/outcome, metrics, code/demo links.
+3. **Skills** (`#skills`) — 4 grouped cards (Frontend, Backend, Database, Tooling) with tech chips.
+4. **Experience** (`#experience`) — Work history and internships with bullet points and stack tags.
+5. **About** (`#about`) — Background, CSE degree status, and live "Currently" list.
+6. **Education** (`#education`) — Degree details, coursework, and credentials.
+7. **Contact** (`#contact`) — Direct links with SVG icons + accessible contact form.
+
+### Container & Grid Dimensions
+- Max width: `max-w-6xl` (`1152px`) centered with `px-4 md:px-8`.
+- Section vertical padding: `py-16 md:py-24`.
+- Left SocialRail: fixed at `left-6`, desktop only (`xl:flex`).
+- Right SectionRail: fixed at `right-6`, desktop only (`xl:flex`), with horizontal tooltips.
+- Mobile Action Bar: sticky bottom bar (`md:hidden`) with Resume and Contact actions.
+
+---
+
+## 5. Components
+
+### Button (`web/src/components/ui/Button.tsx`)
+Replaces legacy `BlobButton`.
+- `variant="primary"`: Solid `--color-accent` background, white text.
+- `variant="secondary"`: Outlined `--color-border`, surface background, hover border accent.
+- Micro-interactions: Framer motion `whileHover={{ scale: 1.02 }}`, `whileTap={{ scale: 0.98 }}`.
+
+### ProjectCard (`web/src/components/ui/ProjectCard.tsx`)
+- 16:9 screenshot preview with `next/image`.
+- One-line problem / outcome statement.
+- Optional key metric badge (e.g. "40% faster rendering").
+- Stack chips using JetBrains Mono.
+- Direct links for Live demo ↗, GitHub code ↗, and Case study →.
+
+### SectionRail (`web/src/components/ui/SectionRail.tsx`)
+- Horizontal tooltips and labels (no vertical `writing-mode`).
+- Active indicator dot with pulsing ring.
+- IntersectionObserver tracking corresponding to the 6 page sections.
+
+### ContactSection (`web/src/components/sections/ContactSection.tsx`)
+- Inline SVG external link icons (`aria-hidden="true"`).
+- Working contact form with honeypot bot trap.
+- Loading spinner and accessible live region (`aria-live="polite"`).
+- State messages using `--color-success` and `--color-danger`.
+
+---
+
+## 6. What NOT to Do
+
+1. **NO blur or backdrop-blur**: Do not use `backdrop-blur-*` or `blur-*` classes anywhere. Use clean, high-contrast solid surfaces (`--color-surface`, `--color-surface-2`) with subtle borders.
+2. **Success & Danger rule**: Use `--color-success` (`#34D399`) **ONLY** for the "Open to work" status dot and form success state. Use `--color-danger` (`#F87171`) **ONLY** for form error states. Do not invent arbitrary colors.
+3. **NO icon libraries**: Do not install or import Lucide, React Icons, FontAwesome, etc. Write clean inline SVG icons with `aria-hidden="true"`.
+4. **NO sub-12px text**: Always maintain a minimum font size of `text-xs` (12px).
+5. **NO percentage progress bars in Skills**: Skills are grouped into clean chip tags.
+6. **NO horizontal scroll**: Verify `overflow-x: hidden` and check responsiveness at 360px viewport width.
+7. **NO invented personal data**: Mark placeholder information with `// TODO:`.
+
+---
+
+## 7. File Map
+
+```
+web/
+├── public/
+│   ├── og.png                     # OpenGraph preview image (placeholder, see OG_IMAGE_TODO.txt)
+│   ├── resume.pdf                 # Recruiter-facing PDF resume
+│   └── projects/                  # Project screenshots and assets
+└── src/
+    ├── app/
+    │   ├── globals.css            # Tailwind v4 entry point + design tokens (@theme inline)
+    │   ├── globals.legacy.css     # Backup reference of legacy theme (not imported)
+    │   ├── layout.tsx             # Root layout: Inter + JetBrains Mono + Syne, SEO metadata
+    │   ├── page.tsx               # Home page: Hero -> Projects -> Skills -> Experience -> About -> Education -> Contact
+    │   ├── robots.ts              # Search engine crawler directives
+    │   ├── sitemap.ts             # XML sitemap generator
+    │   └── projects/[slug]/page.tsx # Detailed case study route (Problem, Architecture, Auth, Deployment, Hard problem)
+    ├── components/
+    │   ├── sections/
+    │   │   ├── HeroSection.tsx    # Introduction, Open to work badge, stack chips, dual CTAs
+    │   │   ├── ProjectsSection.tsx# Featured works grid
+    │   │   ├── SkillsSection.tsx  # 4-category grid (Frontend, Backend, Database, Tooling)
+    │   │   ├── ExperienceSection.tsx # Career history and internships
+    │   │   ├── AboutSection.tsx   # Biography and current pursuits
+    │   │   ├── EducationSection.tsx # Degree and academic achievements
+    │   │   └── ContactSection.tsx # Contact channels and form with accessible status
+    │   └── ui/
+    │       ├── Button.tsx         # Primary and secondary button component (Framer Motion)
+    │       ├── Chip.tsx           # JetBrains Mono tech badge with TechIcon
+    │       ├── MobileActionBar.tsx# Mobile-only sticky bottom bar for Resume & Contact
+    │       ├── ProjectCard.tsx    # 16:9 card with metric & links
+    │       ├── SectionHeading.tsx # Section title + 34x3px accent underline bar
+    │       ├── SectionRail.tsx    # Desktop right-side nav with horizontal labels
+    │       ├── SocialRail.tsx     # Desktop left-side social links
+    │       └── TopBar.tsx         # 3-col navbar with centered Projects link & wordmark
+    └── types/
+        └── index.ts               # Shared TypeScript interfaces (Project, Profile, Skill, etc.)
+```

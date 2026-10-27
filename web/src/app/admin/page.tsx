@@ -99,8 +99,9 @@ export default function AdminDashboardPage() {
       });
       if (!res.ok) throw new Error("Failed to save profile");
       notify("Profile updated successfully!");
-    } catch (err: any) {
-      notify(err.message, "error");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to save profile";
+      notify(msg, "error");
     }
   }
 
@@ -125,8 +126,9 @@ export default function AdminDashboardPage() {
       setSkills((prev) => [...prev, created]);
       setNewSkillName("");
       notify(`Added skill: ${created.name}`);
-    } catch (err: any) {
-      notify(err.message, "error");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to add skill";
+      notify(msg, "error");
     }
   }
 
@@ -140,8 +142,9 @@ export default function AdminDashboardPage() {
       if (!res.ok) throw new Error("Failed to delete skill");
       setSkills((prev) => prev.filter((s) => s._id !== id));
       notify("Skill deleted");
-    } catch (err: any) {
-      notify(err.message, "error");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to delete skill";
+      notify(msg, "error");
     }
   }
 
@@ -160,8 +163,9 @@ export default function AdminDashboardPage() {
 
       setProjects((prev) => prev.map((p) => (p._id === project._id ? { ...p, featured: newFeatured } : p)));
       notify(`Updated: ${project.title} featured = ${newFeatured}`);
-    } catch (err: any) {
-      notify(err.message, "error");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to update featured state";
+      notify(msg, "error");
     }
   }
 
@@ -182,8 +186,9 @@ export default function AdminDashboardPage() {
 
       setProjects((prev) => prev.map((p) => (p._id === project._id ? { ...p, status: newStatus } : p)));
       notify(`Status changed to ${newStatus}`);
-    } catch (err: any) {
-      notify(err.message, "error");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Publish validation failed";
+      notify(msg, "error");
     }
   }
 
@@ -205,8 +210,9 @@ export default function AdminDashboardPage() {
       setProjects((prev) => [data, ...prev]);
       setGithubImportUrl("");
       notify(`Successfully imported: ${data.title}! (Saved as draft)`);
-    } catch (err: any) {
-      notify(err.message, "error");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "GitHub import failed";
+      notify(msg, "error");
     } finally {
       setGithubImportLoading(false);
     }
@@ -219,15 +225,15 @@ export default function AdminDashboardPage() {
         method: "POST",
         headers: getHeaders(),
       });
-      const data = await res.json();
       if (!res.ok) throw new Error("Link checker failed");
 
       // Reload projects
       const updated = await fetch(`${apiBase}/admin/projects`, { headers: getHeaders() }).then((r) => r.json());
       setProjects(updated);
       notify("All project links verified!");
-    } catch (err: any) {
-      notify(err.message, "error");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Link checker failed";
+      notify(msg, "error");
     } finally {
       setLinkCheckLoading(false);
     }
@@ -242,7 +248,7 @@ export default function AdminDashboardPage() {
         body: JSON.stringify({ read }),
       });
       setMessages((prev) => prev.map((m) => (m._id === id ? { ...m, read } : m)));
-    } catch (err: any) {
+    } catch {
       notify("Failed to update message", "error");
     }
   }
@@ -256,7 +262,7 @@ export default function AdminDashboardPage() {
       });
       setMessages((prev) => prev.filter((m) => m._id !== id));
       notify("Message deleted");
-    } catch (err: any) {
+    } catch {
       notify("Failed to delete message", "error");
     }
   }
@@ -514,7 +520,7 @@ export default function AdminDashboardPage() {
                 />
                 <select
                   value={newSkillCategory}
-                  onChange={(e) => setNewSkillCategory(e.target.value as any)}
+                  onChange={(e) => setNewSkillCategory(e.target.value as Skill["category"])}
                   className="w-full sm:w-44 rounded-xl px-3 py-2 text-xs outline-none bg-surface-2 border border-border text-white"
                 >
                   <option value="frontend">Frontend</option>
