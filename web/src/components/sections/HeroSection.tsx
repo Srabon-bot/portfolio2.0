@@ -19,7 +19,8 @@
 
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { BlobButton } from "@/components/ui/BlobButton";
+import { Button } from "@/components/ui/Button";
+import { Chip } from "@/components/ui/Chip";
 import { Container } from "@/components/ui/Container";
 import type { Profile } from "@/types";
 
@@ -37,8 +38,10 @@ const fadeUp: Variants = {
   }),
 };
 
-export function HeroSection({ profile }: HeroSectionProps) {
+/* Core stack chips featured in the hero for recruiters */
+const HERO_STACK = ["React", "Next.js", "TypeScript", "Node.js", "MongoDB"];
 
+export function HeroSection({ profile }: HeroSectionProps) {
   return (
     <section
       id="hero"
@@ -51,23 +54,45 @@ export function HeroSection({ profile }: HeroSectionProps) {
         {/* ── Left / Bottom: text content ───────────────────────────── */}
         <div className="flex flex-col gap-5">
 
-          {/* Speech-bubble badge "It's me" */}
+          {/* Badges row: Open to work + It's me */}
           <motion.div
             custom={0}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="self-start"
+            className="flex flex-wrap items-center gap-3 self-start"
           >
+            {/* "Open to work" badge */}
             <span
-              className="inline-flex items-center gap-2 text-sm font-medium px-4 py-1.5 rounded-full"
+              className="inline-flex items-center gap-2 text-xs font-mono font-medium px-3.5 py-1.5 rounded-full"
+              style={{
+                background: "rgba(52, 211, 153, 0.12)",
+                border: "1px solid rgba(52, 211, 153, 0.3)",
+                color: "var(--color-success)",
+              }}
+            >
+              <span className="relative flex h-2 w-2">
+                <span
+                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                  style={{ background: "var(--color-success)" }}
+                />
+                <span
+                  className="relative inline-flex rounded-full h-2 w-2"
+                  style={{ background: "var(--color-success)" }}
+                />
+              </span>
+              Open to work
+            </span>
+
+            {/* Speech-bubble badge "It's me" */}
+            <span
+              className="inline-flex items-center gap-2 text-xs font-medium px-3.5 py-1.5 rounded-full"
               style={{
                 background: "var(--color-surface-2)",
                 border: "1px solid var(--color-border)",
                 color: "var(--color-muted)",
               }}
             >
-              {/* Waving hand emoji — visible without JS thanks to SSR */}
               <span aria-hidden="true">👋</span> It&apos;s me
             </span>
           </motion.div>
@@ -113,64 +138,48 @@ export function HeroSection({ profile }: HeroSectionProps) {
             {profile.tagline}
           </motion.p>
 
-          {/* Download Resume button — THE ONLY CTA (PRD: no "Let's talk" button) */}
+          {/* Core stack chips in hero */}
+          <motion.div
+            custom={0.35}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-wrap items-center gap-2 pt-1"
+            aria-label="Core tech stack"
+          >
+            {HERO_STACK.map((tech) => (
+              <Chip key={tech} label={tech} size="sm" />
+            ))}
+          </motion.div>
+
+          {/* Two CTAs: View projects (primary) + Download resume (secondary) */}
           <motion.div
             custom={0.4}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mt-2"
+            className="flex flex-wrap items-center gap-3 pt-2"
           >
-            {profile.resumeUrl ? (
-              /*
-               * When a real resume URL exists, link directly to it with the
-               * `download` attribute so the browser saves the file.
-               * In Phase 1 we fall back to the /resume page.
-               */
-              <BlobButton
-                href={profile.resumeUrl}
-                download
-                className="bg-accent hover:bg-accent/90 text-sm md:text-base"
+            <Button variant="primary" href="#projects">
+              View projects
+            </Button>
+            <Button variant="secondary" href="/resume.pdf" download>
+              <svg
+                width="16" height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
               >
-                <svg
-                  width="16" height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7 10 12 15 17 10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-                Download Resume
-              </BlobButton>
-            ) : (
-              /* Fallback: link to /resume page while no PDF is uploaded yet */
-              <BlobButton
-                href="/resume"
-                className="bg-accent hover:bg-accent/90 text-sm md:text-base"
-              >
-                <svg
-                  width="16" height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7 10 12 15 17 10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-                Download Resume
-              </BlobButton>
-            )}
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download resume
+            </Button>
           </motion.div>
         </div>
 
@@ -199,26 +208,6 @@ export function HeroSection({ profile }: HeroSectionProps) {
               transition: { duration: 0.3, ease: "easeOut" },
             }}
           >
-            {/* Pulsing ambient aura glow behind the square */}
-            <motion.div
-              aria-hidden="true"
-              className="absolute -inset-4 sm:-inset-6 rounded-3xl opacity-60 blur-2xl pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(108,71,255,0.45) 0%, rgba(58,42,138,0.3) 50%, transparent 75%)",
-              }}
-              animate={{
-                scale: [0.95, 1.08, 0.95],
-                opacity: [0.45, 0.75, 0.45],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-              }}
-            />
-
             {/* Gradient border frame — squared with sleek modern rounded corners */}
             <div
               className="relative p-[3px] rounded-2xl overflow-hidden shadow-2xl transition-all duration-300"
@@ -267,10 +256,10 @@ export function HeroSection({ profile }: HeroSectionProps) {
             {/* Top-left code pill badge */}
             <motion.div
               aria-hidden="true"
-              className="absolute -top-3 -left-3 md:-top-3.5 md:-left-3.5 px-2.5 py-1 rounded-lg backdrop-blur-md flex items-center gap-1.5 shadow-lg pointer-events-none"
+              className="absolute -top-3 -left-3 md:-top-3.5 md:-left-3.5 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-lg pointer-events-none"
               style={{
-                background: "color-mix(in srgb, var(--color-surface-2) 90%, transparent)",
-                border: "1px solid color-mix(in srgb, var(--color-accent) 35%, transparent)",
+                background: "var(--color-surface-2)",
+                border: "1px solid var(--color-border)",
               }}
               animate={{
                 y: [0, 3, 0],
@@ -290,10 +279,10 @@ export function HeroSection({ profile }: HeroSectionProps) {
 
             {/* Bottom-right live status badge */}
             <motion.div
-              className="absolute -bottom-3 -right-3 md:-bottom-3.5 md:-right-3.5 px-3 py-1.5 rounded-xl backdrop-blur-md flex items-center gap-2 shadow-xl pointer-events-none"
+              className="absolute -bottom-3 -right-3 md:-bottom-3.5 md:-right-3.5 px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-xl pointer-events-none"
               style={{
-                background: "color-mix(in srgb, var(--color-surface-2) 90%, transparent)",
-                border: "1px solid color-mix(in srgb, var(--color-accent) 40%, transparent)",
+                background: "var(--color-surface-2)",
+                border: "1px solid var(--color-border)",
               }}
               animate={{
                 y: [0, -3, 0],

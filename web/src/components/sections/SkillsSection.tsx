@@ -1,35 +1,58 @@
 /*
- * SkillsSection — three grouped cards (Frontend, Backend, Tools) + secondary ML row.
+ * SkillsSection — grouped into Frontend, Backend, Database, Tooling.
  *
- * PRD §6.4: "three grouped cards with chips. Grouping must be clear.
- * MERN technologies lead each card. A slim, lower-emphasis row labelled
- * 'Also: ML and data' shows the ml-data skills."
- *
- * PRD §5.5 (critical): "content must be visible without JavaScript and
- * must never render as a blank area." This is a Server Component — no JS needed.
+ * Hiring-ready features:
+ * - 4 clean categories: Frontend, Backend, Database, Tooling
+ * - No percentage bars (recruiter preference: stack chips only)
+ * - Server component: zero client JavaScript required, SSR ready
  */
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 import { Chip } from "@/components/ui/Chip";
-import type { Skill, SkillGroups } from "@/types";
+import type { Skill } from "@/types";
 
 interface SkillsSectionProps {
   skills: Skill[];
 }
 
-/* Helper: group a flat skills array into the four categories */
-function groupSkills(skills: Skill[]): SkillGroups {
+const DATABASE_TECH = ["mongodb", "sql", "postgres", "dexie", "neon", "redis", "prisma", "mongoose"];
+
+function groupSkills(skills: Skill[]) {
   const sorted = [...skills].sort((a, b) => a.order - b.order);
-  return {
-    frontend: sorted.filter((s) => s.category === "frontend"),
-    backend:  sorted.filter((s) => s.category === "backend"),
-    tools:    sorted.filter((s) => s.category === "tools"),
-    mlData:   sorted.filter((s) => s.category === "ml-data"),
-  };
+
+  const frontend: Skill[] = [];
+  const backend: Skill[] = [];
+  const database: Skill[] = [];
+  const tooling: Skill[] = [];
+
+  sorted.forEach((skill) => {
+    const nameLower = skill.name.toLowerCase();
+    const isDb = DATABASE_TECH.some((db) => nameLower.includes(db));
+
+    if (isDb || (skill.category as string) === "database") {
+      database.push(skill);
+    } else if (skill.category === "frontend") {
+      frontend.push(skill);
+    } else if (skill.category === "backend") {
+      backend.push(skill);
+    } else if (skill.category === "tools") {
+      tooling.push(skill);
+    } else if (skill.category === "ml-data") {
+      tooling.push(skill);
+    } else {
+      tooling.push(skill);
+    }
+  });
+
+  return [
+    { title: "Frontend", skills: frontend },
+    { title: "Backend",  skills: backend },
+    { title: "Database", skills: database },
+    { title: "Tooling",  skills: tooling },
+  ];
 }
 
-/* A single skill group card */
 function SkillCard({ title, skills }: { title: string; skills: Skill[] }) {
   return (
     <div
@@ -39,16 +62,21 @@ function SkillCard({ title, skills }: { title: string; skills: Skill[] }) {
         border: "1px solid var(--color-border)",
       }}
     >
-      <h3 className="text-sm font-semibold uppercase tracking-widest" style={{ color: "var(--color-muted)" }}>
-        {title}
-      </h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-xs md:text-sm font-mono font-semibold uppercase tracking-wider" style={{ color: "var(--color-muted)" }}>
+          {title}
+        </h3>
+        <span className="text-xs font-mono text-faint">
+          {skills.length} skills
+        </span>
+      </div>
+
       <div className="flex flex-wrap gap-2">
         {skills.map((skill) => (
           <Chip key={skill._id} label={skill.name} />
         ))}
-        {/* If empty, show a fallback so the card is never blank */}
         {skills.length === 0 && (
-          <span className="text-faint text-xs italic">No skills added yet</span>
+          <span className="text-faint text-xs italic">No skills listed</span>
         )}
       </div>
     </div>
@@ -67,38 +95,20 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
       <Container>
         <SectionHeading
           title="Skills"
-          subtitle="Technologies I work with every day"
+          subtitle="Technologies and tools I use to build scalable web applications"
           id="skills-heading"
         />
 
-      {/* Three main skill cards — 1 column on mobile, 3 on desktop */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <SkillCard title="Frontend" skills={groups.frontend} />
-        <SkillCard title="Backend"  skills={groups.backend}  />
-        <SkillCard title="Tools"    skills={groups.tools}    />
-      </div>
-
-      {/* Secondary "Also: ML and data" strip — lower emphasis */}
-      {groups.mlData.length > 0 && (
-        <div
-          className="mt-5 rounded-xl px-5 py-4 flex flex-wrap items-center gap-2"
-          style={{
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
-          }}
-        >
-          {/* Label — clearly secondary, faint color */}
-          <span
-            className="text-xs font-semibold uppercase tracking-widest mr-2 flex-shrink-0"
-            style={{ color: "var(--color-faint)" }}
-          >
-            Also: ML &amp; data
-          </span>
-          {groups.mlData.map((skill) => (
-            <Chip key={skill._id} label={skill.name} size="sm" />
+        {/* 4 grouped cards — 1 col on mobile, 2 on tablet, 4 on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {groups.map((group) => (
+            <SkillCard
+              key={group.title}
+              title={group.title}
+              skills={group.skills}
+            />
           ))}
         </div>
-      )}
       </Container>
     </section>
   );

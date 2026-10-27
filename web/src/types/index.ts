@@ -24,6 +24,8 @@ export interface Project {
   /** One sentence: what it does and who it is for */
   tagline: string;
   problem?: string;
+  outcome?: string;
+  metric?: string;              /* optional key metric e.g. "40% faster loading" */
   description?: string;
   role?: string;
   features: string[];           /* 3-4 recommended */
