@@ -1,12 +1,21 @@
+"use client";
+
 /*
- * SkillsSection — grouped into Frontend, Backend, Database, Tooling.
+ * SkillsSection — rebalanced 2-column grid layout.
  *
  * Hiring-ready features:
- * - 4 clean categories: Frontend, Backend, Database, Tooling
- * - No percentage bars (recruiter preference: stack chips only)
- * - Server component: zero client JavaScript required, SSR ready
+ * - 4 balanced categories:
+ *     1. Frontend (7)
+ *     2. Backend & Database (7)
+ *     3. Tooling & Deployment (6)
+ *     4. AI/ML & Languages (9)
+ * - Highlighted core MERN stack chips (MongoDB, Express, React, Node.js)
+ * - MERN legend indicator under section subtitle
+ * - Framer Motion stagger entrance respecting reduced-motion
+ * - Hover border transition without blur or colored glow
  */
 
+import { motion, type Variants } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 import { Chip } from "@/components/ui/Chip";
@@ -16,72 +25,106 @@ interface SkillsSectionProps {
   skills: Skill[];
 }
 
-const DATABASE_TECH = ["mongodb", "sql", "postgres", "dexie", "neon", "redis", "prisma", "mongoose"];
+/* Category mapping from skill name to group title */
+const SKILL_GROUP_MAP: Record<string, string> = {
+  // Frontend (7)
+  "React": "Frontend",
+  "Next.js": "Frontend",
+  "TypeScript": "Frontend",
+  "JavaScript": "Frontend",
+  "Tailwind CSS": "Frontend",
+  "HTML5": "Frontend",
+  "CSS3": "Frontend",
 
-function groupSkills(skills: Skill[]) {
+  // Backend & Database (7)
+  "Node.js": "Backend & Database",
+  "Express": "Backend & Database",
+  "REST APIs": "Backend & Database",
+  "JWT auth": "Backend & Database",
+  "MongoDB": "Backend & Database",
+  "SQL": "Backend & Database",
+  "Firebase": "Backend & Database",
+
+  // Tooling & Deployment (6)
+  "Git": "Tooling & Deployment",
+  "GitHub": "Tooling & Deployment",
+  "VS Code": "Tooling & Deployment",
+  "Linux": "Tooling & Deployment",
+  "Vercel": "Tooling & Deployment",
+  "Render": "Tooling & Deployment",
+
+  // AI/ML & Languages (9)
+  "Python": "AI/ML & Languages",
+  "C": "AI/ML & Languages",
+  "C++": "AI/ML & Languages",
+  "TensorFlow": "AI/ML & Languages",
+  "PyTorch": "AI/ML & Languages",
+  "scikit-learn": "AI/ML & Languages",
+  "Pandas": "AI/ML & Languages",
+  "NumPy": "AI/ML & Languages",
+  "Jupyter": "AI/ML & Languages",
+};
+
+const GROUP_ORDER = [
+  "Frontend",
+  "Backend & Database",
+  "Tooling & Deployment",
+  "AI/ML & Languages",
+] as const;
+
+/* Core MERN stack for hiring highlight */
+const MERN_CORE = new Set(["MongoDB", "Express", "React", "Node.js"]);
+
+interface SkillGroup {
+  title: string;
+  skills: Skill[];
+}
+
+function groupSkills(skills: Skill[]): SkillGroup[] {
   const sorted = [...skills].sort((a, b) => a.order - b.order);
 
-  const frontend: Skill[] = [];
-  const backend: Skill[] = [];
-  const database: Skill[] = [];
-  const tooling: Skill[] = [];
+  const groups: Record<string, Skill[]> = {
+    "Frontend": [],
+    "Backend & Database": [],
+    "Tooling & Deployment": [],
+    "AI/ML & Languages": [],
+  };
+
+  const otherSkills: Skill[] = [];
 
   sorted.forEach((skill) => {
-    const nameLower = skill.name.toLowerCase();
-    const isDb = DATABASE_TECH.some((db) => nameLower.includes(db));
-
-    if (isDb || (skill.category as string) === "database") {
-      database.push(skill);
-    } else if (skill.category === "frontend") {
-      frontend.push(skill);
-    } else if (skill.category === "backend") {
-      backend.push(skill);
-    } else if (skill.category === "tools") {
-      tooling.push(skill);
-    } else if (skill.category === "ml-data") {
-      tooling.push(skill);
+    const targetGroup = SKILL_GROUP_MAP[skill.name];
+    if (targetGroup && groups[targetGroup]) {
+      groups[targetGroup].push(skill);
     } else {
-      tooling.push(skill);
+      otherSkills.push(skill);
     }
   });
 
-  return [
-    { title: "Frontend", skills: frontend },
-    { title: "Backend",  skills: backend },
-    { title: "Database", skills: database },
-    { title: "Tooling",  skills: tooling },
-  ];
+  const result: SkillGroup[] = GROUP_ORDER.map((title) => ({
+    title,
+    skills: groups[title],
+  }));
+
+  if (otherSkills.length > 0) {
+    result.push({ title: "Other", skills: otherSkills });
+  }
+
+  return result;
 }
 
-function SkillCard({ title, skills }: { title: string; skills: Skill[] }) {
-  return (
-    <div
-      className="rounded-2xl p-5 md:p-6 flex flex-col gap-4 h-full transition-all duration-300 hover:border-accent/40"
-      style={{
-        background: "var(--color-surface)",
-        border: "1px solid var(--color-border)",
-      }}
-    >
-      <div className="flex items-center justify-between">
-        <h3 className="text-xs md:text-sm font-mono font-semibold uppercase tracking-wider" style={{ color: "var(--color-muted)" }}>
-          {title}
-        </h3>
-        <span className="text-xs font-mono text-faint">
-          {skills.length} skills
-        </span>
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        {skills.map((skill) => (
-          <Chip key={skill._id} label={skill.name} />
-        ))}
-        {skills.length === 0 && (
-          <span className="text-faint text-xs italic">No skills listed</span>
-        )}
-      </div>
-    </div>
-  );
-}
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      delay: i * 0.05,
+      ease: "easeOut",
+    },
+  }),
+};
 
 export function SkillsSection({ skills }: SkillsSectionProps) {
   const groups = groupSkills(skills);
@@ -99,14 +142,71 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
           id="skills-heading"
         />
 
-        {/* 4 grouped cards — 1 col on mobile, 2 on tablet, 4 on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {groups.map((group) => (
-            <SkillCard
+        {/* Core stack (MERN) legend under subtitle */}
+        <div className="flex items-center gap-2.5 -mt-6 mb-8" aria-label="Skill highlight legend">
+          <span
+            className="inline-block w-2 h-2 rounded-full flex-shrink-0"
+            style={{ background: "var(--color-accent)" }}
+            aria-hidden="true"
+          />
+          <span className="text-xs font-mono text-faint">
+            Core stack (MERN)
+          </span>
+        </div>
+
+        {/* Balanced 2-column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          {groups.map((group, index) => (
+            <motion.div
               key={group.title}
-              title={group.title}
-              skills={group.skills}
-            />
+              custom={index}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              variants={cardVariants}
+              className="rounded-2xl p-5 md:p-6 flex flex-col gap-4 border transition-colors duration-200"
+              style={{
+                background: "var(--color-surface)",
+                borderColor: "var(--color-border)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor =
+                  "color-mix(in srgb, var(--color-accent) 30%, transparent)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--color-border)";
+              }}
+            >
+              {/* Card Header */}
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs font-mono uppercase tracking-widest text-faint">
+                  {group.title}
+                </h3>
+                <span className="text-xs font-mono text-faint">
+                  {group.skills.length} skills
+                </span>
+              </div>
+
+              {/* Chips wrap */}
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => {
+                  const isHighlighted = MERN_CORE.has(skill.name);
+                  return (
+                    <Chip
+                      key={skill._id || skill.name}
+                      label={skill.name}
+                      size="md"
+                      highlight={isHighlighted}
+                    />
+                  );
+                })}
+                {group.skills.length === 0 && (
+                  <span className="text-faint text-xs italic font-mono">
+                    No skills listed
+                  </span>
+                )}
+              </div>
+            </motion.div>
           ))}
         </div>
       </Container>

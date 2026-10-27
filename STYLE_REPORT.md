@@ -108,6 +108,22 @@ Replaces legacy `BlobButton`.
 - Stack chips using JetBrains Mono.
 - Direct links for Live demo ↗, GitHub code ↗, and Case study →.
 
+### Chip (`web/src/components/ui/Chip.tsx`)
+- JetBrains Mono tech badge with `TechIcon`.
+- Size options: `sm`, `md` (standard in Skills cards), `lg`.
+- `highlight` prop: Core MERN stack items (MongoDB, Express, React, Node.js) styled with `border-color: color-mix(in srgb, var(--color-accent) 50%, transparent)` and `text-text`.
+
+### SkillsSection (`web/src/components/sections/SkillsSection.tsx`)
+- 2-column balanced grid (`grid-cols-1 md:grid-cols-2 gap-4 md:gap-5`).
+- 4 balanced categories:
+  - Frontend (7)
+  - Backend & Database (7)
+  - Tooling & Deployment (6)
+  - AI/ML & Languages (9)
+- Core stack (MERN) legend under section subtitle with 8px accent dot.
+- Subtle card border hover (`color-mix(in srgb, var(--color-accent) 30%, transparent)`).
+- 0.05s staggered entrance animation respecting `prefers-reduced-motion`.
+
 ### SectionRail (`web/src/components/ui/SectionRail.tsx`)
 - Horizontal tooltips and labels (no vertical `writing-mode`).
 - Active indicator dot with pulsing ring.
