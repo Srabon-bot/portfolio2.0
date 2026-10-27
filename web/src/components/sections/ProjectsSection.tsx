@@ -35,15 +35,15 @@ export function ProjectsSection({
 
   return (
     <section
-      id="works"
+      id="projects"
       aria-label="Projects and case studies"
       className="py-16 md:py-24"
     >
       <Container>
         <SectionHeading
-          title="My Works"
-          subtitle="Projects I am proud to show"
-          id="works-heading"
+          title="Projects"
+          subtitle="Featured software projects and applications"
+          id="projects-heading"
         />
 
         {/* Project grid — 1 column mobile, 2 columns tablet and up */}

@@ -51,10 +51,16 @@
     font-weight: 400;
     min-height: 100dvh;
     /* Extra bottom padding for the mobile sticky action bar */
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;             /* no horizontal scroll at any width  */
+  }
+
+  @media (min-width: 768px) {
+    body {
+      padding-bottom: 0;
+    }
   }
 
   :focus-visible {

@@ -19,12 +19,14 @@ import { TopBar }          from "@/components/ui/TopBar";
 import { SocialRail }      from "@/components/ui/SocialRail";
 import { SectionRail }     from "@/components/ui/SectionRail";
 import { HeroSection }     from "@/components/sections/HeroSection";
+import { ProjectsSection } from "@/components/sections/ProjectsSection";
+import { SkillsSection }   from "@/components/sections/SkillsSection";
+import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { AboutSection }    from "@/components/sections/AboutSection";
 import { EducationSection } from "@/components/sections/EducationSection";
-import { SkillsSection }   from "@/components/sections/SkillsSection";
-import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ContactSection }  from "@/components/sections/ContactSection";
 import { Footer }          from "@/components/ui/Footer";
+import { MobileActionBar } from "@/components/ui/MobileActionBar";
 import {
   getProfile,
   getSkills,
@@ -51,18 +53,22 @@ export default async function HomePage() {
 
       <main>
         <HeroSection profile={profile} />
-        <AboutSection profile={profile} />
-        <EducationSection />
-        <SkillsSection skills={skills} />
         <ProjectsSection
           featuredProjects={featured}
           mlProjects={mlProjects}
           totalPublished={all.filter((p) => p.status === "published").length}
         />
+        <SkillsSection skills={skills} />
+        <ExperienceSection />
+        <AboutSection profile={profile} />
+        <EducationSection />
         <ContactSection profile={profile} />
       </main>
 
       <Footer profile={profile} />
+
+      {/* Sticky bottom action bar on mobile only */}
+      <MobileActionBar profile={profile} />
     </>
   );
 }

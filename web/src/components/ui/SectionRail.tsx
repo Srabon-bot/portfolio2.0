@@ -1,30 +1,30 @@
 "use client";
 
 /*
- * SectionRail — fixed right-side vertical navigation rail.
+ * SectionRail — fixed right-side navigation rail (desktop ≥ 1280px).
  *
- * Mirrors the left SocialRail. Visible only at ≥ 1280px (xl breakpoint).
- * Links scroll to section anchors and the active section is highlighted
- * via IntersectionObserver.
- *
- * Writing direction: top-to-bottom (writing-mode: vertical-rl + rotate 180°).
- * pointer-events: none on wrapper so dead space doesn't block clicks.
+ * Hiring-ready features:
+ * - Horizontal labels with tooltips on hover (no vertical writing-mode)
+ * - Dot indicators with active pulse / accent color
+ * - Full IntersectionObserver tracking
+ * - Correct section order: Projects -> Skills -> Experience -> About -> Education -> Contact
  */
 
 import { useEffect, useState } from "react";
 
 const sectionLinks = [
-  { label: "About",     href: "#about"     },
-  { label: "Education", href: "#education" },
-  { label: "Skills",    href: "#skills"    },
-  { label: "Works",     href: "#works"     },
-  { label: "Contact",   href: "#contact"   },
+  { label: "Projects",   href: "#projects"   },
+  { label: "Skills",     href: "#skills"     },
+  { label: "Experience", href: "#experience" },
+  { label: "About",      href: "#about"      },
+  { label: "Education",  href: "#education"  },
+  { label: "Contact",    href: "#contact"    },
 ];
 
-const sectionIds = sectionLinks.map((l) => l.href.slice(1)); /* strip # */
+const sectionIds = sectionLinks.map((l) => l.href.slice(1));
 
 export function SectionRail() {
-  const [activeId, setActiveId] = useState<string>("");
+  const [activeId, setActiveId] = useState<string>("projects");
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -38,8 +38,8 @@ export function SectionRail() {
           if (entry.isIntersecting) setActiveId(id);
         },
         {
-          rootMargin: "-40% 0px -50% 0px", /* trigger when section is roughly centred */
-          threshold:  0,
+          rootMargin: "-40% 0px -50% 0px",
+          threshold: 0,
         }
       );
       obs.observe(el);
@@ -50,70 +50,68 @@ export function SectionRail() {
   }, []);
 
   return (
-    /* Hidden below xl — pointer-events:none on container so dead space is click-through */
     <aside
-      className="hidden xl:flex flex-col items-center gap-5 fixed right-6 top-1/2 -translate-y-1/2 z-40"
+      className="hidden xl:flex flex-col items-center gap-4 fixed right-6 top-1/2 -translate-y-1/2 z-40"
       style={{ pointerEvents: "none" }}
       aria-label="Page sections"
     >
-      {/* Vertical line above links */}
+      {/* Top vertical guide line */}
       <div
         aria-hidden="true"
-        className="w-px mb-2"
-        style={{ height: "60px", background: "var(--color-border)" }}
+        className="w-px"
+        style={{ height: "48px", background: "var(--color-border)" }}
       />
 
       <nav
-        aria-label="Page sections"
+        aria-label="Section navigation"
         style={{ pointerEvents: "auto" }}
       >
-        <ul className="flex flex-col items-center gap-4 list-none">
+        <ul className="flex flex-col items-end gap-3.5 list-none">
           {sectionLinks.map((link) => {
-            const id     = link.href.slice(1);
+            const id = link.href.slice(1);
             const active = activeId === id;
+
             return (
-              <li key={link.href} className="flex items-center gap-1.5">
-                {/* Active dot/tick marker */}
-                <span
-                  aria-hidden="true"
-                  style={{
-                    display:         "block",
-                    width:           "4px",
-                    height:          "4px",
-                    borderRadius:    "50%",
-                    background:      active
-                      ? "var(--color-accent-soft)"
-                      : "var(--color-border)",
-                    transition:      "background 0.25s",
-                    /* The text is rotated so flip marker to the text's visual left */
-                    writingMode:     "horizontal-tb",
-                    transform:       "none",
-                  }}
-                />
+              <li key={link.href} className="relative flex items-center group">
                 <a
                   href={link.href}
-                  style={{
-                    writingMode: "vertical-rl",
-                    transform:   "rotate(180deg)", /* makes text read top-to-bottom */
-                    fontSize:    "0.65rem",
-                    fontWeight:  600,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: active
-                      ? "var(--color-accent-soft)"
-                      : "var(--color-faint)",
-                    transition:  "color 0.25s",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--color-muted)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = active
-                      ? "var(--color-accent-soft)"
-                      : "var(--color-faint)")
-                  }
+                  aria-label={`Jump to ${link.label} section`}
+                  aria-current={active ? "true" : undefined}
+                  className="flex items-center gap-2.5 py-1 px-1.5 focus:outline-none"
                 >
-                  {link.label}
+                  {/* Horizontal label: visible on hover or active */}
+                  <span
+                    className={`text-xs font-mono uppercase tracking-wider transition-all duration-200 select-none ${
+                      active
+                        ? "opacity-100 text-accent-soft font-semibold translate-x-0"
+                        : "opacity-0 group-hover:opacity-100 text-muted translate-x-1 group-hover:translate-x-0"
+                    }`}
+                  >
+                    {link.label}
+                  </span>
+
+                  {/* Dot indicator */}
+                  <span
+                    aria-hidden="true"
+                    className="relative flex items-center justify-center w-3 h-3 flex-shrink-0"
+                  >
+                    {active && (
+                      <span
+                        className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
+                        style={{ background: "var(--color-accent)" }}
+                      />
+                    )}
+                    <span
+                      className="block rounded-full transition-all duration-200"
+                      style={{
+                        width: active ? "8px" : "6px",
+                        height: active ? "8px" : "6px",
+                        background: active
+                          ? "var(--color-accent)"
+                          : "var(--color-border)",
+                      }}
+                    />
+                  </span>
                 </a>
               </li>
             );
@@ -121,11 +119,11 @@ export function SectionRail() {
         </ul>
       </nav>
 
-      {/* Vertical line below links */}
+      {/* Bottom vertical guide line */}
       <div
         aria-hidden="true"
-        className="w-px mt-2"
-        style={{ height: "60px", background: "var(--color-border)" }}
+        className="w-px"
+        style={{ height: "48px", background: "var(--color-border)" }}
       />
     </aside>
   );
