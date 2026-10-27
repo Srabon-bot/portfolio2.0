@@ -147,16 +147,14 @@ export function TopBar({ profile }: TopBarProps) {
               ))}
             </ul>
 
-            {/* Resume pill button (arrow-free, centered, px-3 py-1, min-h-11) */}
-            <a
-              href={profile.resumeUrl || "/resume.pdf"}
-              download
-              aria-label="Resume (opens in a new tab)"
+            {/* Resume pill button (navigates to /resume page) */}
+            <Link
+              href="/resume"
               className="hidden md:inline-flex items-center justify-center text-xs font-mono font-semibold text-accent-soft hover:text-white border px-3 py-1 min-h-11 rounded-full transition-all hover:bg-accent/20 whitespace-nowrap shrink-0"
               style={{ borderColor: "color-mix(in srgb, var(--color-accent) 40%, transparent)" }}
             >
               Resume
-            </a>
+            </Link>
 
             {/* Mobile / Tablet Hamburger (< lg) */}
             <button
@@ -202,15 +200,13 @@ export function TopBar({ profile }: TopBarProps) {
 
           <div style={{ height: "1px", background: "var(--color-border)" }} aria-hidden="true" />
 
-          <a
-            href={profile.resumeUrl || "/resume.pdf"}
-            download
-            aria-label="Resume (opens in a new tab)"
+          <Link
+            href="/resume"
             className="text-sm font-mono font-semibold text-accent-soft py-1 hover:text-accent transition-colors"
             onClick={closeMenu}
           >
             Resume
-          </a>
+          </Link>
 
           {/* Email in mobile drawer */}
           <a
