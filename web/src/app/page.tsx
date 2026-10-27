@@ -21,7 +21,6 @@ import { SectionRail }     from "@/components/ui/SectionRail";
 import { HeroSection }     from "@/components/sections/HeroSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { SkillsSection }   from "@/components/sections/SkillsSection";
-import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { AboutSection }    from "@/components/sections/AboutSection";
 import { EducationSection } from "@/components/sections/EducationSection";
 import { ContactSection }  from "@/components/sections/ContactSection";
@@ -59,7 +58,6 @@ export default async function HomePage() {
           totalPublished={all.filter((p) => p.status === "published").length}
         />
         <SkillsSection skills={skills} />
-        <ExperienceSection />
         <AboutSection profile={profile} />
         <EducationSection />
         <ContactSection profile={profile} />

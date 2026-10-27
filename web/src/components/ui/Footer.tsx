@@ -35,7 +35,6 @@ export function Footer({ profile }: FooterProps) {
   const footerNav = [
     { label: "Projects",   href: "#projects"   },
     { label: "Skills",     href: "#skills"     },
-    { label: "Experience", href: "#experience" },
     { label: "About",      href: "#about"      },
     { label: "Education",  href: "#education"  },
     { label: "Contact",    href: "#contact"    },

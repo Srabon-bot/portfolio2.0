@@ -78,11 +78,10 @@ Three fonts loaded via `next/font/google` in `layout.tsx`:
 ### Section Order (Hiring-First Hierarchy)
 1. **Hero** (`#hero`) — Introduction, "Open to work" badge, core stack chips, two CTAs.
 2. **Projects** (`#projects`) — Featured 16:9 ProjectCards, problem/outcome, metrics, code/demo links.
-3. **Skills** (`#skills`) — 4 grouped cards (Frontend, Backend, Database, Tooling) with tech chips.
-4. **Experience** (`#experience`) — Work history and internships with bullet points and stack tags.
-5. **About** (`#about`) — Background, CSE degree status, and live "Currently" list.
-6. **Education** (`#education`) — Degree details, coursework, and credentials.
-7. **Contact** (`#contact`) — Direct links with SVG icons + accessible contact form.
+3. **Skills** (`#skills`) — 2-column balanced grid across 4 groups with MERN highlight chips and legend.
+4. **About** (`#about`) — Background, CSE degree status, and live "Currently" list.
+5. **Education** (`#education`) — Degree details, coursework, and credentials.
+6. **Contact** (`#contact`) — Direct links with SVG icons + accessible contact form.
 
 ### Container & Grid Dimensions
 - Max width: `max-w-6xl` (`1152px`) centered with `px-4 md:px-8`.
@@ -162,7 +161,7 @@ web/
     │   ├── globals.css            # Tailwind v4 entry point + design tokens (@theme inline)
     │   ├── globals.legacy.css     # Backup reference of legacy theme (not imported)
     │   ├── layout.tsx             # Root layout: Inter + JetBrains Mono + Syne, SEO metadata
-    │   ├── page.tsx               # Home page: Hero -> Projects -> Skills -> Experience -> About -> Education -> Contact
+    │   ├── page.tsx               # Home page: Hero -> Projects -> Skills -> About -> Education -> Contact
     │   ├── robots.ts              # Search engine crawler directives
     │   ├── sitemap.ts             # XML sitemap generator
     │   └── projects/[slug]/page.tsx # Detailed case study route (Problem, Architecture, Auth, Deployment, Hard problem)
@@ -170,8 +169,7 @@ web/
     │   ├── sections/
     │   │   ├── HeroSection.tsx    # Introduction, Open to work badge, stack chips, dual CTAs
     │   │   ├── ProjectsSection.tsx# Featured works grid
-    │   │   ├── SkillsSection.tsx  # 4-category grid (Frontend, Backend, Database, Tooling)
-    │   │   ├── ExperienceSection.tsx # Career history and internships
+    │   │   ├── SkillsSection.tsx  # 2-column balanced grid across 4 groups with MERN highlights
     │   │   ├── AboutSection.tsx   # Biography and current pursuits
     │   │   ├── EducationSection.tsx # Degree and academic achievements
     │   │   └── ContactSection.tsx # Contact channels and form with accessible status
