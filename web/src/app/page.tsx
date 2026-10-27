@@ -58,8 +58,8 @@ export default async function HomePage() {
           totalPublished={all.filter((p) => p.status === "published").length}
         />
         <SkillsSection skills={skills} />
-        <AboutSection profile={profile} />
         <EducationSection />
+        <AboutSection profile={profile} />
         <ContactSection profile={profile} />
       </main>
 

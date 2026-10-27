@@ -35,8 +35,8 @@ export function Footer({ profile }: FooterProps) {
   const footerNav = [
     { label: "Projects",   href: "#projects"   },
     { label: "Skills",     href: "#skills"     },
-    { label: "About",      href: "#about"      },
     { label: "Education",  href: "#education"  },
+    { label: "About",      href: "#about"      },
     { label: "Contact",    href: "#contact"    },
     { label: "Resume",     href: "/resume"     },
   ];
@@ -84,12 +84,12 @@ export function Footer({ profile }: FooterProps) {
 
           {/* Center: nav links */}
           <nav aria-label="Footer navigation">
-            <ul className="flex flex-wrap justify-center gap-4 list-none">
+            <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 list-none">
               {footerNav.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-xs font-mono hover:text-text transition-colors"
+                    className="text-xs font-mono hover:text-text transition-colors py-2 px-1 min-h-11 inline-flex items-center"
                     style={{ color: "var(--color-faint)" }}
                   >
                     {link.label}
@@ -101,14 +101,14 @@ export function Footer({ profile }: FooterProps) {
 
           {/* Right: social links (visible on mobile too — SocialRail is hidden on mobile) */}
           <nav aria-label="Social media links">
-            <ul className="flex items-center gap-4 list-none">
+            <ul className="flex flex-wrap justify-center items-center gap-4 list-none">
               {socialLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
                     target={link.href.startsWith("mailto") ? undefined : "_blank"}
                     rel="noopener noreferrer"
-                    className="text-xs hover:text-accent-soft transition-colors"
+                    className="text-xs hover:text-accent-soft transition-colors py-2 px-1 min-h-11 inline-flex items-center"
                     style={{ color: "var(--color-faint)" }}
                   >
                     {link.label}

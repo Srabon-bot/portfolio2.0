@@ -46,44 +46,23 @@ export function HeroSection({ profile }: HeroSectionProps) {
     <section
       id="hero"
       aria-label="Introduction"
-      className="relative py-16 md:py-24"
+      className="relative py-12 sm:py-16 lg:py-24 lg:min-h-[calc(100dvh-3.5rem)] flex items-center"
+      style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>
-        <div className="flex flex-col-reverse md:grid md:grid-cols-2 md:items-center gap-12 md:gap-10">
+        <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 lg:items-center gap-8 lg:gap-12">
 
         {/* ── Left / Bottom: text content ───────────────────────────── */}
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4 sm:gap-5 lg:gap-6">
 
-          {/* Badges row: Open to work + It's me */}
+          {/* Badge: It's me */}
           <motion.div
             custom={0}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="flex flex-wrap items-center gap-3 self-start"
+            className="flex items-center self-start"
           >
-            {/* "Open to work" badge */}
-            <span
-              className="inline-flex items-center gap-2 text-xs font-mono font-medium px-3.5 py-1.5 rounded-full"
-              style={{
-                background: "rgba(52, 211, 153, 0.12)",
-                border: "1px solid rgba(52, 211, 153, 0.3)",
-                color: "var(--color-success)",
-              }}
-            >
-              <span className="relative flex h-2 w-2">
-                <span
-                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                  style={{ background: "var(--color-success)" }}
-                />
-                <span
-                  className="relative inline-flex rounded-full h-2 w-2"
-                  style={{ background: "var(--color-success)" }}
-                />
-              </span>
-              Open to work
-            </span>
-
             {/* Speech-bubble badge "It's me" */}
             <span
               className="inline-flex items-center gap-2 text-xs font-medium px-3.5 py-1.5 rounded-full"
@@ -103,8 +82,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+            className="font-bold leading-tight"
             style={{
+              fontSize: "clamp(2rem, 1.2rem + 3.5vw, 3.5rem)",
               letterSpacing: "0.05em",
               color: "var(--color-text)",
             }}
@@ -158,7 +138,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="flex flex-wrap items-center gap-3 pt-2"
+            className="flex flex-col sm:flex-row sm:items-center gap-3 pt-2"
           >
             <Button variant="primary" href="#projects">
               View projects
@@ -189,7 +169,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="flex justify-center md:justify-end"
+          className="flex justify-center lg:justify-end"
         >
           {/* Outer floating wrapper with smooth infinite levitation animation */}
           <motion.div
@@ -221,8 +201,8 @@ export function HeroSection({ profile }: HeroSectionProps) {
               <div
                 className="relative rounded-[14px] overflow-hidden"
                 style={{
-                  width: "clamp(240px, 32vw, 340px)",
-                  height: "clamp(240px, 32vw, 340px)",
+                  width: "clamp(120px, 22vw, 280px)",
+                  height: "clamp(120px, 22vw, 280px)",
                   background: "var(--color-surface)",
                 }}
               >
@@ -232,7 +212,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                   fill
                   className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                   priority   /* above-the-fold image — load it eagerly */
-                  sizes="(max-width: 768px) 240px, 340px"
+                  sizes="(max-width: 1024px) 22vw, 280px"
                 />
 
                 {/* Subtle dark gradient overlay at bottom edge for contrast */}

@@ -133,7 +133,8 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
     <section
       id="skills"
       aria-label="Skills and technologies"
-      className="py-16 md:py-24"
+      className="py-12 sm:py-16 lg:py-24"
+      style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>
         <SectionHeading
@@ -154,8 +155,8 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
           </span>
         </div>
 
-        {/* Balanced 2-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+        {/* Balanced 2-column grid: 1 col below sm, 2x2 from sm */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           {groups.map((group, index) => (
             <motion.div
               key={group.title}

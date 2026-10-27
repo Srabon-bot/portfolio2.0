@@ -16,7 +16,12 @@ interface SectionHeadingProps {
 export function SectionHeading({ title, subtitle, id }: SectionHeadingProps) {
   return (
     <div className="mb-10" id={id}>
-      <h2 className="text-2xl md:text-3xl font-bold text-text">{title}</h2>
+      <h2
+        className="font-bold text-text"
+        style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2rem)" }}
+      >
+        {title}
+      </h2>
 
       {/* The accent underline bar — 34px wide, 3px tall, accent purple */}
       <div

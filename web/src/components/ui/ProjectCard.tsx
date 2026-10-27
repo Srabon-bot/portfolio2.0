@@ -55,7 +55,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             alt={`${project.title} screenshot`}
             fill
             className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 550px"
           />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
@@ -77,13 +77,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <div className="flex flex-col flex-1 p-5 gap-3">
         {/* Title & Metric (if not rendered as overlay) */}
         <div className="flex items-start justify-between gap-2">
-          <h3 className="text-base md:text-lg font-bold text-text leading-snug">
+          <h3
+            className="text-base md:text-lg font-bold text-text leading-snug break-words"
+            style={{ overflowWrap: "anywhere" }}
+          >
             {project.title}
           </h3>
         </div>
 
         {/* One-line problem / outcome */}
-        <p className="text-muted text-xs md:text-sm line-clamp-2 leading-relaxed">
+        <p
+          className="text-muted text-xs md:text-sm line-clamp-2 leading-relaxed break-words"
+          style={{ overflowWrap: "anywhere" }}
+        >
           {problemOrOutcome}
         </p>
 

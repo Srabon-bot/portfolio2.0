@@ -6,8 +6,7 @@
  * Hiring-ready layout (3-column CSS grid):
  *   [SRABON wordmark]  |  [Projects link — truly centred]  |  [Resume pill]
  *
- * Links and sections updated to match the hiring priority:
- * Projects -> Skills -> Experience -> About -> Education -> Contact
+ * Order: Projects, Skills, Education, About, Contact
  */
 
 import Link from "next/link";
@@ -21,8 +20,8 @@ interface TopBarProps {
 const navLinks = [
   { label: "Projects",   href: "#projects"   },
   { label: "Skills",     href: "#skills"     },
-  { label: "About",      href: "#about"      },
   { label: "Education",  href: "#education"  },
+  { label: "About",      href: "#about"      },
   { label: "Contact",    href: "#contact"    },
 ];
 
@@ -99,44 +98,43 @@ export function TopBar({ profile }: TopBarProps) {
     >
       <nav aria-label="Main navigation">
         <div
-          className="mx-auto px-6 h-14 items-center"
-          style={{
-            maxWidth: "1280px",
-            display: "grid",
-            gridTemplateColumns: "1fr auto 1fr",
-          }}
+          className="mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between"
+          style={{ maxWidth: "1280px" }}
         >
-          {/* Left — SRABON wordmark */}
-          <Link
-            href="/"
-            aria-label="Go to home"
-            className="flex items-center justify-self-start"
-            style={{
-              fontFamily:    "var(--font-syne), system-ui, sans-serif",
-              fontWeight:    800,
-              fontSize:      "1.15rem",
-              letterSpacing: "0.18em",
-              color:         "var(--color-text)",
-              transition:    "color 0.2s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent-soft)")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text)")}
-          >
-            SRABON
-          </Link>
+          {/* Left — SRABON wordmark (anchored to left corner) */}
+          <div className="flex-1 flex justify-start">
+            <Link
+              href="/"
+              aria-label="Go to home"
+              className="flex items-center whitespace-nowrap shrink-0"
+              style={{
+                fontFamily:    "var(--font-syne), system-ui, sans-serif",
+                fontWeight:    800,
+                fontSize:      "1.15rem",
+                letterSpacing: "0.18em",
+                color:         "var(--color-text)",
+                transition:    "color 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent-soft)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text)")}
+            >
+              SRABON
+            </Link>
+          </div>
 
-          {/* Centre — Projects anchor link (centered in page) */}
-          <a
-            href="#projects"
-            className="hidden md:inline-flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-muted hover:text-accent-soft transition-colors text-center px-3 py-1 rounded-full hover:bg-surface"
-          >
-            <span>Projects</span>
-            <span className="text-accent-soft">↓</span>
-          </a>
+          {/* Centre — Projects anchor link (centered in page on desktop) */}
+          <div className="hidden md:flex flex-none justify-center">
+            <a
+              href="#projects"
+              className="inline-flex items-center text-xs font-mono font-semibold uppercase tracking-wider text-muted hover:text-accent-soft transition-colors text-center px-3 py-1 rounded-full hover:bg-surface whitespace-nowrap shrink-0"
+            >
+              <span>Projects</span>
+            </a>
+          </div>
 
-          {/* Right — mid-range nav links (md → xl) + Resume pill */}
-          <div className="flex items-center gap-4 justify-self-end">
-            <ul className="hidden md:flex xl:hidden items-center gap-4 list-none">
+          {/* Right — mid-range nav links (lg to xl) + Resume pill + Hamburger (anchored to right corner) */}
+          <div className="flex-1 flex items-center justify-end gap-3 sm:gap-4">
+            <ul className="hidden lg:flex xl:hidden items-center gap-4 list-none">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
@@ -149,21 +147,22 @@ export function TopBar({ profile }: TopBarProps) {
               ))}
             </ul>
 
-            {/* Resume pill button */}
+            {/* Resume pill button (arrow-free, centered, px-3 py-1, min-h-11) */}
             <a
               href={profile.resumeUrl || "/resume.pdf"}
               download
-              className="hidden md:inline-flex items-center text-xs font-mono font-semibold text-accent-soft hover:text-white border px-3.5 py-1.5 rounded-full transition-all hover:bg-accent/20"
+              aria-label="Resume (opens in a new tab)"
+              className="hidden md:inline-flex items-center justify-center text-xs font-mono font-semibold text-accent-soft hover:text-white border px-3 py-1 min-h-11 rounded-full transition-all hover:bg-accent/20 whitespace-nowrap shrink-0"
               style={{ borderColor: "color-mix(in srgb, var(--color-accent) 40%, transparent)" }}
             >
-              Resume ↗
+              Resume
             </a>
 
-            {/* Mobile Hamburger */}
+            {/* Mobile / Tablet Hamburger (< lg) */}
             <button
               ref={triggerRef}
               id="mobile-menu-trigger"
-              className="md:hidden flex items-center justify-center p-2 -mr-2 text-text"
+              className="lg:hidden flex items-center justify-center p-2.5 min-w-11 min-h-11 -mr-2 text-text"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu-panel"
@@ -175,7 +174,7 @@ export function TopBar({ profile }: TopBarProps) {
         </div>
       </nav>
 
-      {/* Mobile Drawer */}
+      {/* Mobile / Tablet Drawer (< lg) */}
       {menuOpen && (
         <div
           id="mobile-menu-panel"
@@ -183,10 +182,11 @@ export function TopBar({ profile }: TopBarProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"
-          className="md:hidden flex flex-col px-6 py-5 gap-4"
+          className="lg:hidden flex flex-col px-6 py-5 gap-4 overflow-y-auto"
           style={{
             background:   "var(--color-surface)",
             borderTop:    "1px solid var(--color-border)",
+            maxHeight:    "calc(100dvh - 3.5rem)",
           }}
         >
           {navLinks.map((link) => (
@@ -205,10 +205,11 @@ export function TopBar({ profile }: TopBarProps) {
           <a
             href={profile.resumeUrl || "/resume.pdf"}
             download
+            aria-label="Resume (opens in a new tab)"
             className="text-sm font-mono font-semibold text-accent-soft py-1 hover:text-accent transition-colors"
             onClick={closeMenu}
           >
-            Download Resume ↗
+            Resume
           </a>
 
           {/* Email in mobile drawer */}

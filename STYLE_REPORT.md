@@ -79,16 +79,32 @@ Three fonts loaded via `next/font/google` in `layout.tsx`:
 1. **Hero** (`#hero`) — Introduction, "Open to work" badge, core stack chips, two CTAs.
 2. **Projects** (`#projects`) — Featured 16:9 ProjectCards, problem/outcome, metrics, code/demo links.
 3. **Skills** (`#skills`) — 2-column balanced grid across 4 groups with MERN highlight chips and legend.
-4. **About** (`#about`) — Background, CSE degree status, and live "Currently" list.
-5. **Education** (`#education`) — Degree details, coursework, and credentials.
+4. **Education & Achievements** (`#education`) — Academic history at UITS and verified honors.
+5. **About** (`#about`) — Background, CSE degree status, and live "Currently" list.
 6. **Contact** (`#contact`) — Direct links with SVG icons + accessible contact form.
 
-### Container & Grid Dimensions
-- Max width: `max-w-6xl` (`1152px`) centered with `px-4 md:px-8`.
-- Section vertical padding: `py-16 md:py-24`.
-- Left SocialRail: fixed at `left-6`, desktop only (`xl:flex`).
-- Right SectionRail: fixed at `right-6`, desktop only (`xl:flex`), with horizontal tooltips.
-- Mobile Action Bar: sticky bottom bar (`md:hidden`) with Resume and Contact actions.
+### Breakpoint Strategy (Tailwind v4 Default Breakpoints)
+
+| Breakpoint | Range | Navigation & Layout Behavior |
+|---|---|---|
+| `< sm` | `< 640px` | Single-column grids everywhere; CTAs stack; Hamburger + drawer navigation; sticky bottom bar active; touch targets ≥ 44×44px. |
+| `sm` | `640px – 767px` | 2×2 Skills grid; 2×2 Contact info cards; row CTAs in Hero; sticky bottom bar active. |
+| `md` | `768px – 1023px` | Sticky bottom bar hidden; Footer displays in row; TopBar retains hamburger + drawer (< 1024px) to prevent 5 inline links crowding. |
+| `lg` | `1024px – 1279px` | TopBar inline links visible; Hamburger hidden; rails hidden (no overlap); 2-column Hero (min-height `100dvh - 3.5rem`); About "Currently" beside bio; Contact form beside cards. |
+| `xl` | `1280px – 1535px` | Rails visible (`SectionRail` and `SocialRail`). `SectionRail` renders dots only (no labels) so 1100px content is never overlapped. |
+| `2xl` | `≥ 1536px` | `SectionRail` displays horizontal labels on hover/active. Container max width expands up to 1200px. |
+
+### Fluid Sizing Rules
+- **Container Padding:** `px-4 sm:px-6 lg:px-8`, max-width `1100px` (`2xl:max-w-[1200px]`), centered.
+- **Section Padding:** `py-12 sm:py-16 lg:py-24`.
+- **Hero Title Clamp:** `clamp(2rem, 1.2rem + 3.5vw, 3.5rem)`.
+- **Section Heading Clamp:** `clamp(1.5rem, 1.2rem + 1vw, 2rem)` with 34×3px `--color-accent` bar.
+- **Body Text:** Strict `16px` (`text-base`), line-height 1.6.
+- **Hero Avatar Size:** `clamp(120px, 22vw, 280px)`.
+- **Block Spacing:** `gap-4 sm:gap-5 lg:gap-6`.
+- **Sticky TopBar Offset:** `scrollMarginTop: "4.5rem"` on each section so headings are never covered.
+- **Touch Target Minimum:** At least `44×44px` for all interactive elements via `min-h-11` or padding.
+- **Overflow Prevention:** `overflow-wrap: anywhere` and `break-words` on all dynamic card titles and descriptions.
 
 ---
 
@@ -145,6 +161,7 @@ Replaces legacy `BlobButton`.
 5. **NO percentage progress bars in Skills**: Skills are grouped into clean chip tags.
 6. **NO horizontal scroll**: Verify `overflow-x: hidden` and check responsiveness at 360px viewport width.
 7. **NO invented personal data**: Mark placeholder information with `// TODO:`.
+8. **NO arrow icons in navigation**: All nav buttons and links (TopBar wordmark, centered "Projects" link, Resume pill, inline links, mobile drawer, SectionRail, SocialRail, Footer nav links, and MobileActionBar) have NO arrow icons (`↗`, `→`, `->`, `↓`, chevrons). Nav buttons and links show clean text only (plus existing social SVG logos on social links). Where links open in a new tab, accessibility is preserved with `aria-label="Resume (opens in a new tab)"` and `target="_blank" rel="noopener noreferrer"`. Arrows remain permitted only in content components (Hero CTAs, ProjectCard links, Contact cards).
 
 ---
 
@@ -161,7 +178,7 @@ web/
     │   ├── globals.css            # Tailwind v4 entry point + design tokens (@theme inline)
     │   ├── globals.legacy.css     # Backup reference of legacy theme (not imported)
     │   ├── layout.tsx             # Root layout: Inter + JetBrains Mono + Syne, SEO metadata
-    │   ├── page.tsx               # Home page: Hero -> Projects -> Skills -> About -> Education -> Contact
+    │   ├── page.tsx               # Home page: Hero -> Projects -> Skills -> Education -> About -> Contact
     │   ├── robots.ts              # Search engine crawler directives
     │   ├── sitemap.ts             # XML sitemap generator
     │   └── projects/[slug]/page.tsx # Detailed case study route (Problem, Architecture, Auth, Deployment, Hard problem)
@@ -170,8 +187,8 @@ web/
     │   │   ├── HeroSection.tsx    # Introduction, Open to work badge, stack chips, dual CTAs
     │   │   ├── ProjectsSection.tsx# Featured works grid
     │   │   ├── SkillsSection.tsx  # 2-column balanced grid across 4 groups with MERN highlights
+    │   │   ├── EducationSection.tsx # Merged Education & Achievements section
     │   │   ├── AboutSection.tsx   # Biography and current pursuits
-    │   │   ├── EducationSection.tsx # Degree and academic achievements
     │   │   └── ContactSection.tsx # Contact channels and form with accessible status
     │   └── ui/
     │       ├── Button.tsx         # Primary and secondary button component (Framer Motion)

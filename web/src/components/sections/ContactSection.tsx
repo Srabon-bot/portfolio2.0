@@ -117,7 +117,8 @@ export function ContactSection({ profile }: ContactSectionProps) {
     <section
       id="contact"
       aria-label="Contact Srabon"
-      className="py-16 md:py-24"
+      className="py-12 sm:py-16 lg:py-24"
+      style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>
         <SectionHeading
@@ -126,13 +127,13 @@ export function ContactSection({ profile }: ContactSectionProps) {
           id="contact-heading"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
-          {/* ── Left: contact info cards ──────────────────────────────── */}
-          <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          {/* ── Left / Top: contact info cards (1 col < sm, 2x2 >= sm) ──── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {contactLinks.map((link) => (
               <div
                 key={link.label}
-                className="group rounded-xl p-4 flex items-center gap-4 transition-all duration-300 hover:border-accent/40"
+                className="group rounded-xl p-4 flex items-center gap-3.5 transition-all duration-300 hover:border-accent/40 min-w-0"
                 style={{
                   background: "var(--color-surface)",
                   border: "1px solid var(--color-border)",
@@ -155,13 +156,16 @@ export function ContactSection({ profile }: ContactSectionProps) {
                       href={link.href}
                       target={link.href.startsWith("mailto") ? undefined : "_blank"}
                       rel="noopener noreferrer"
-                      className="text-sm font-medium hover:text-accent-soft transition-colors truncate block"
-                      style={{ color: "var(--color-text)" }}
+                      className="text-xs sm:text-sm font-medium hover:text-accent-soft transition-colors break-words block"
+                      style={{ color: "var(--color-text)", overflowWrap: "anywhere" }}
                     >
                       {link.value}
                     </a>
                   ) : (
-                    <p className="text-sm font-medium truncate" style={{ color: "var(--color-text)" }}>
+                    <p
+                      className="text-xs sm:text-sm font-medium break-words"
+                      style={{ color: "var(--color-text)", overflowWrap: "anywhere" }}
+                    >
                       {link.value}
                     </p>
                   )}
@@ -279,7 +283,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
               <button
                 type="submit"
                 disabled={status === "loading" || status === "success"}
-                className="rounded-xl px-6 py-3 text-sm font-semibold text-white transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed hover:opacity-95"
+                className="rounded-xl px-6 py-3 min-h-11 text-sm font-semibold text-white transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed hover:opacity-95 flex items-center justify-center"
                 style={{ background: "var(--color-accent)" }}
               >
                 {status === "loading" ? (

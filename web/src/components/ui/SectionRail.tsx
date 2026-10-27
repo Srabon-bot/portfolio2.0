@@ -7,7 +7,7 @@
  * - Horizontal labels with tooltips on hover (no vertical writing-mode)
  * - Dot indicators with active pulse / accent color
  * - Full IntersectionObserver tracking
- * - Correct section order: Projects -> Skills -> Experience -> About -> Education -> Contact
+ * - Correct section order: Projects, Skills, Education, About, Contact
  */
 
 import { useEffect, useState } from "react";
@@ -15,8 +15,8 @@ import { useEffect, useState } from "react";
 const sectionLinks = [
   { label: "Projects",   href: "#projects"   },
   { label: "Skills",     href: "#skills"     },
-  { label: "About",      href: "#about"      },
   { label: "Education",  href: "#education"  },
+  { label: "About",      href: "#about"      },
   { label: "Contact",    href: "#contact"    },
 ];
 
@@ -78,9 +78,9 @@ export function SectionRail() {
                   aria-current={active ? "true" : undefined}
                   className="flex items-center gap-2.5 py-1 px-1.5 focus:outline-none"
                 >
-                  {/* Horizontal label: visible on hover or active */}
+                  {/* Horizontal label: visible only at 2xl (dots only at xl to never overlap 1100px content) */}
                   <span
-                    className={`text-xs font-mono uppercase tracking-wider transition-all duration-200 select-none ${
+                    className={`hidden 2xl:inline-block text-xs font-mono uppercase tracking-wider transition-all duration-200 select-none ${
                       active
                         ? "opacity-100 text-accent-soft font-semibold translate-x-0"
                         : "opacity-0 group-hover:opacity-100 text-muted translate-x-1 group-hover:translate-x-0"

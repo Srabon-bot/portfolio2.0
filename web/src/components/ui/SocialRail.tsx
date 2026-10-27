@@ -64,7 +64,7 @@ export function SocialRail({ profile }: SocialRailProps) {
   return (
     /* Hidden on mobile — the footer shows these links instead (PRD §5.4) */
     <aside
-      className="hidden xl:flex flex-col items-center gap-5 fixed left-6 top-1/2 -translate-y-1/2 z-40"
+      className="hidden xl:flex flex-col items-center gap-2 fixed left-6 top-1/2 -translate-y-1/2 z-40"
       aria-label="Social links"
     >
       {links.map((link) => (
@@ -74,7 +74,7 @@ export function SocialRail({ profile }: SocialRailProps) {
           target={link.href.startsWith("mailto") ? undefined : "_blank"}
           rel="noopener noreferrer"
           aria-label={link.label}
-          className="text-faint hover:text-accent-soft transition-colors p-1"
+          className="text-faint hover:text-accent-soft transition-colors p-2.5 min-w-11 min-h-11 flex items-center justify-center"
         >
           {link.icon}
         </a>

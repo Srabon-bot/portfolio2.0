@@ -37,7 +37,8 @@ export function ProjectsSection({
     <section
       id="projects"
       aria-label="Projects and case studies"
-      className="py-16 md:py-24"
+      className="py-12 sm:py-16 lg:py-24"
+      style={{ scrollMarginTop: "4.5rem" }}
     >
       <Container>
         <SectionHeading
@@ -46,8 +47,8 @@ export function ProjectsSection({
           id="projects-heading"
         />
 
-        {/* Project grid — 1 column mobile, 2 columns tablet and up */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Project grid — self-adapting auto-fit grid */}
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] gap-5">
         {featuredProjects.map((project) => (
           <ProjectCard key={project._id} project={project} />
         ))}
