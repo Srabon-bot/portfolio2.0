@@ -33,11 +33,13 @@ export function Footer({ profile }: FooterProps) {
 
   /* Footer nav links */
   const footerNav = [
-    { label: "About",   href: "#about"   },
-    { label: "Skills",  href: "#skills"  },
-    { label: "Works",   href: "#works"   },
-    { label: "Contact", href: "#contact" },
-    { label: "Resume",  href: "/resume"  },
+    { label: "Projects",   href: "#projects"   },
+    { label: "Skills",     href: "#skills"     },
+    { label: "Experience", href: "#experience" },
+    { label: "About",      href: "#about"      },
+    { label: "Education",  href: "#education"  },
+    { label: "Contact",    href: "#contact"    },
+    { label: "Resume",     href: "/resume"     },
   ];
 
   return (
@@ -60,16 +62,23 @@ export function Footer({ profile }: FooterProps) {
       >
         <Container className="flex flex-col md:flex-row items-center justify-between gap-6">
 
-          {/* Left: branding */}
+          {/* Left: branding — matches TopBar SRABON wordmark */}
           <div className="text-center md:text-left">
             <Link
               href="/"
-              className="text-base font-bold tracking-widest hover:text-accent-soft transition-colors"
-              style={{ color: "var(--color-text)" }}
+              aria-label="Go to home"
+              className="inline-block transition-colors hover:text-accent-soft"
+              style={{
+                fontFamily:    "var(--font-syne), system-ui, sans-serif",
+                fontWeight:    800,
+                fontSize:      "1.15rem",
+                letterSpacing: "0.18em",
+                color:         "var(--color-text)",
+              }}
             >
-              S<span style={{ color: "var(--color-accent)" }}>.</span>
+              SRABON
             </Link>
-            <p className="text-xs mt-1" style={{ color: "var(--color-faint)" }}>
+            <p className="text-xs mt-1 font-mono" style={{ color: "var(--color-faint)" }}>
               Full-Stack Developer (MERN) · Dhaka, Bangladesh
             </p>
           </div>
@@ -81,7 +90,7 @@ export function Footer({ profile }: FooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-xs hover:text-text transition-colors"
+                    className="text-xs font-mono hover:text-text transition-colors"
                     style={{ color: "var(--color-faint)" }}
                   >
                     {link.label}
