@@ -6,15 +6,23 @@
  * at runtime (better privacy and performance).
  */
 import type { Metadata } from "next";
-import { Roboto, Syne } from "next/font/google";
+import { Inter, JetBrains_Mono, Syne } from "next/font/google";
 import "./globals.css";
 
-/* Load Roboto with the four weights the PRD requires */
-const roboto = Roboto({
+/* Load Inter as primary sans font */
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-  variable: "--font-roboto",   /* becomes a CSS custom property */
-  display: "swap",             /* show fallback font while Roboto loads */
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+/* Load JetBrains Mono for code, labels, and chips */
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-jetbrains",
+  display: "swap",
 });
 
 /* Load Syne for the wordmark — wide, distinctive display face */
@@ -54,8 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      /* Apply the Roboto CSS variable to <html> so every element inherits it */
-      className={`${roboto.variable} ${syne.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${syne.variable}`}
     >
       <body>
         {children}

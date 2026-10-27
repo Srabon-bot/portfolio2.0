@@ -72,7 +72,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
               <span className="text-xs font-semibold" style={{ color: "var(--color-text)" }}>
                 Final-Semester CSE
               </span>
-              <span className="text-[11px]" style={{ color: "var(--color-muted)" }}>
+              <span className="text-xs" style={{ color: "var(--color-muted)" }}>
                 UITS, Dhaka • Open to roles
               </span>
             </div>

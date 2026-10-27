@@ -117,7 +117,7 @@ export default function AdminLoginPage() {
           </button>
         </form>
 
-        <p className="text-[11px] text-faint text-center">
+        <p className="text-xs text-faint text-center">
           Protected by JWT authentication and rate limiting.
         </p>
       </div>

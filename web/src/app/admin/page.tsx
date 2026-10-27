@@ -362,19 +362,19 @@ export default function AdminDashboardPage() {
                 <div className="p-5 rounded-2xl bg-surface border border-border flex flex-col gap-1">
                   <span className="text-xs text-faint uppercase font-semibold">Total Projects</span>
                   <span className="text-2xl font-bold text-white">{projects.length}</span>
-                  <span className="text-[11px] text-muted">
+                  <span className="text-xs text-muted">
                     {featuredCount} / 4 featured slots filled
                   </span>
                 </div>
                 <div className="p-5 rounded-2xl bg-surface border border-border flex flex-col gap-1">
                   <span className="text-xs text-faint uppercase font-semibold">Skills Configured</span>
                   <span className="text-2xl font-bold text-white">{skills.length}</span>
-                  <span className="text-[11px] text-muted">Across 4 categories</span>
+                  <span className="text-xs text-muted">Across 4 categories</span>
                 </div>
                 <div className="p-5 rounded-2xl bg-surface border border-border flex flex-col gap-1">
                   <span className="text-xs text-faint uppercase font-semibold">Unread Messages</span>
                   <span className="text-2xl font-bold text-white">{unreadMessagesCount}</span>
-                  <span className="text-[11px] text-muted">Total: {messages.length}</span>
+                  <span className="text-xs text-muted">Total: {messages.length}</span>
                 </div>
                 <div className="p-5 rounded-2xl bg-surface border border-border flex flex-col gap-1">
                   <span className="text-xs text-faint uppercase font-semibold">Link Health</span>

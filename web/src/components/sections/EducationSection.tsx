@@ -82,11 +82,11 @@ export function EducationSection() {
 
                 {/* "In Progress" status chip */}
                 <span
-                  className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full flex-shrink-0"
+                  className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full flex-shrink-0"
                   style={{
-                    background: "rgba(139, 92, 246, 0.12)",
+                    background: "rgba(108, 71, 255, 0.12)",
                     color:      "var(--color-accent-soft)",
-                    border:     "1px solid rgba(139, 92, 246, 0.25)",
+                    border:     "1px solid rgba(108, 71, 255, 0.25)",
                   }}
                 >
                   {/* Pulsing dot — same pattern as About's green status dot */}

@@ -93,7 +93,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="text-sm font-semibold"
+            className="font-mono text-sm font-semibold"
             style={{ color: "var(--color-accent-soft)", letterSpacing: "0.18em" }}
             aria-label={`Role: ${profile.role}`}
           >
