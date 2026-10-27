@@ -6,7 +6,7 @@
  * at runtime (better privacy and performance).
  */
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Roboto, Syne } from "next/font/google";
 import "./globals.css";
 
 /* Load Roboto with the four weights the PRD requires */
@@ -15,6 +15,14 @@ const roboto = Roboto({
   weight: ["400", "500", "700", "900"],
   variable: "--font-roboto",   /* becomes a CSS custom property */
   display: "swap",             /* show fallback font while Roboto loads */
+});
+
+/* Load Syne for the wordmark — wide, distinctive display face */
+const syne = Syne({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-syne",
+  display: "swap",
 });
 
 /* The canonical site URL — used to resolve absolute OG/Twitter image URLs */
@@ -47,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       /* Apply the Roboto CSS variable to <html> so every element inherits it */
-      className={`${roboto.variable}`}
+      className={`${roboto.variable} ${syne.variable}`}
     >
       <body>
         {children}

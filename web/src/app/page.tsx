@@ -17,6 +17,7 @@
 
 import { TopBar }          from "@/components/ui/TopBar";
 import { SocialRail }      from "@/components/ui/SocialRail";
+import { SectionRail }     from "@/components/ui/SectionRail";
 import { HeroSection }     from "@/components/sections/HeroSection";
 import { AboutSection }    from "@/components/sections/AboutSection";
 import { EducationSection } from "@/components/sections/EducationSection";
@@ -42,8 +43,11 @@ export default async function HomePage() {
       {/* Sticky top navigation bar */}
       <TopBar profile={profile} />
 
-      {/* Fixed vertical social icon rail (desktop only) */}
+      {/* Fixed vertical social icon rail (desktop only — left side) */}
       <SocialRail profile={profile} />
+
+      {/* Fixed vertical section link rail (desktop only — right side) */}
+      <SectionRail />
 
       <main>
         <HeroSection profile={profile} />
