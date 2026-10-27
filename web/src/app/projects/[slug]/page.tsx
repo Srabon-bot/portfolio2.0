@@ -74,8 +74,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
       <header
         className="sticky top-0 z-50 w-full"
         style={{
-          background: "var(--color-bg, #0B0714)",
-          borderBottom: "1px solid var(--color-border, #2A1F45)",
+          background: "var(--color-bg)",
+          borderBottom: "1px solid var(--color-border)",
         }}
       >
         <div className="max-w-5xl mx-auto px-4 md:px-8 h-14 flex items-center justify-between">
@@ -234,7 +234,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             {project.stack.map((tech) => (
               <div
                 key={tech}
-                className="p-4 rounded-xl flex items-start gap-3.5 transition-all duration-200 hover:border-violet-500/40"
+                className="p-4 rounded-xl flex items-start gap-3.5 transition-all duration-200 hover:border-accent/40"
                 style={{
                   background: "var(--color-surface-2)",
                   border: "1px solid var(--color-border)",

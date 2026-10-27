@@ -1,0 +1,85 @@
+/* ─── Tailwind v4 entry point ─────────────────────────────────────── */
+@import "tailwindcss";
+
+/*
+ * @theme is Tailwind v4's way of defining design tokens that become
+ * usable as Tailwind utility classes (e.g. bg-bg, text-accent).
+ * Think of it as the replacement for tailwind.config.js `theme.extend`.
+ */
+@theme inline {
+  /* ── Fonts ──────────────────────────────────────────────────────── */
+  --font-sans: var(--font-roboto), system-ui, sans-serif;
+
+  /* ── Color palette (from PRD §5.2) ─────────────────────────────── */
+  --color-bg:          #0B0714;   /* page background — blackish purple  */
+  --color-surface:     #140E22;   /* cards                              */
+  --color-surface-2:   #1C1330;   /* chips, inputs, image placeholders  */
+  --color-border:      #2A1F45;   /* card and input borders             */
+  --color-text:        #EDE9F7;   /* primary text                       */
+  --color-muted:       #A79CC4;   /* secondary text                     */
+  --color-faint:       #6F6490;   /* captions, footer text              */
+  --color-accent:      #8B5CF6;   /* links, underlines, active states   */
+  --color-accent-soft: #A78BFA;   /* role label, link hover             */
+  --color-blob:        #5B2FC9;   /* circle behind buttons (use at 75%) */
+
+  /* ── Border radius ──────────────────────────────────────────────── */
+  --radius-card: 14px;
+  --radius-chip:  6px;
+}
+
+/* ─── CSS custom properties (also usable outside Tailwind) ─────────── */
+:root {
+  --font-roboto: "Roboto", system-ui, sans-serif;
+  color-scheme: dark;             /* tells the browser: always dark mode */
+}
+
+/* ─── Base reset and typography inside @layer base ───────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0B0714;      /* --color-bg */
+    color: #EDE9F7;                 /* --color-text */
+    font-family: var(--font-roboto), system-ui, sans-serif;
+    font-size: 1rem;                /* 16px — PRD §5.3 */
+    line-height: 1.6;               /* PRD §5.3 */
+    font-weight: 400;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;             /* no horizontal scroll at any width  */
+  }
+
+  :focus-visible {
+    outline: 2px solid #8B5CF6;    /* --color-accent */
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Respect prefers-reduced-motion OS setting */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

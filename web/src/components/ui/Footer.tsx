@@ -17,7 +17,8 @@ interface FooterProps {
 }
 
 /* The four strip segment colors from PRD §5.2 */
-const STRIP_COLORS = ["#5B2FC9", "#8B5CF6", "#C4B5FD", "#3B2A7A"] as const;
+/* New strip colors matching the redesigned accent palette */
+const STRIP_COLORS = ["#6C47FF", "#A594FF", "#C9BEFF", "#3A2A8A"] as const;
 
 export function Footer({ profile }: FooterProps) {
   const currentYear = new Date().getFullYear();

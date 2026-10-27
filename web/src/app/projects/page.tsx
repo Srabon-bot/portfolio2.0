@@ -110,7 +110,7 @@ export default async function AllProjectsPage() {
               {mlProjects.map((project) => (
                 <div
                   key={project._id || project.slug}
-                  className="flex items-start justify-between gap-4 p-5 rounded-xl transition-all duration-200 hover:border-violet-500/40"
+                  className="flex items-start justify-between gap-4 p-5 rounded-xl transition-all duration-200 hover:border-accent/40"
                   style={{
                     background: "var(--color-surface)",
                     border: "1px solid var(--color-border)",

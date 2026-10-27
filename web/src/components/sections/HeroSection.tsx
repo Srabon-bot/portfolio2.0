@@ -205,7 +205,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
               className="absolute -inset-4 sm:-inset-6 rounded-3xl opacity-60 blur-2xl pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(circle, rgba(139,92,246,0.45) 0%, rgba(91,47,201,0.3) 50%, transparent 75%)",
+                  "radial-gradient(circle, rgba(108,71,255,0.45) 0%, rgba(58,42,138,0.3) 50%, transparent 75%)",
               }}
               animate={{
                 scale: [0.95, 1.08, 0.95],
@@ -224,8 +224,8 @@ export function HeroSection({ profile }: HeroSectionProps) {
               className="relative p-[3px] rounded-2xl overflow-hidden shadow-2xl transition-all duration-300"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(139,92,246,0.7) 0%, rgba(91,47,201,0.3) 50%, rgba(196,181,253,0.5) 100%)",
-                boxShadow: "0 20px 40px -15px rgba(26,14,56,0.7)",
+                  "linear-gradient(135deg, rgba(108,71,255,0.7) 0%, rgba(58,42,138,0.3) 50%, rgba(201,190,255,0.5) 100%)",
+                boxShadow: "0 20px 40px -15px rgba(10,10,15,0.8)",
               }}
             >
               {/* Inner container holding the squared image */}
@@ -255,11 +255,11 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 {/* Tech corner accents */}
                 <div
                   aria-hidden="true"
-                  className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-violet-400/70 rounded-tl-sm pointer-events-none"
+                  className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-accent/50 rounded-tl-sm pointer-events-none"
                 />
                 <div
                   aria-hidden="true"
-                  className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-violet-400/70 rounded-br-sm pointer-events-none"
+                  className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-accent/50 rounded-br-sm pointer-events-none"
                 />
               </div>
             </div>
@@ -269,8 +269,8 @@ export function HeroSection({ profile }: HeroSectionProps) {
               aria-hidden="true"
               className="absolute -top-3 -left-3 md:-top-3.5 md:-left-3.5 px-2.5 py-1 rounded-lg backdrop-blur-md flex items-center gap-1.5 shadow-lg pointer-events-none"
               style={{
-                background: "rgba(22, 17, 39, 0.85)",
-                border: "1px solid rgba(139, 92, 246, 0.35)",
+                background: "color-mix(in srgb, var(--color-surface-2) 90%, transparent)",
+                border: "1px solid color-mix(in srgb, var(--color-accent) 35%, transparent)",
               }}
               animate={{
                 y: [0, 3, 0],
@@ -283,7 +283,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 delay: 0.8,
               }}
             >
-              <span className="text-[11px] font-mono font-medium text-violet-300">
+              <span className="text-xs font-mono font-medium text-accent-soft">
                 &lt;dev /&gt;
               </span>
             </motion.div>
@@ -292,8 +292,8 @@ export function HeroSection({ profile }: HeroSectionProps) {
             <motion.div
               className="absolute -bottom-3 -right-3 md:-bottom-3.5 md:-right-3.5 px-3 py-1.5 rounded-xl backdrop-blur-md flex items-center gap-2 shadow-xl pointer-events-none"
               style={{
-                background: "rgba(22, 17, 39, 0.88)",
-                border: "1px solid rgba(139, 92, 246, 0.4)",
+                background: "color-mix(in srgb, var(--color-surface-2) 90%, transparent)",
+                border: "1px solid color-mix(in srgb, var(--color-accent) 40%, transparent)",
               }}
               animate={{
                 y: [0, -3, 0],
@@ -307,8 +307,14 @@ export function HeroSection({ profile }: HeroSectionProps) {
               }}
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <span
+                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                  style={{ background: "var(--color-success)" }}
+                />
+                <span
+                  className="relative inline-flex rounded-full h-2 w-2"
+                  style={{ background: "var(--color-success)" }}
+                />
               </span>
               <span className="text-xs font-medium text-white tracking-wide">
                 Open to work

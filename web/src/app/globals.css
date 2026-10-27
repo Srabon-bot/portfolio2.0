@@ -8,19 +8,21 @@
  */
 @theme inline {
   /* ── Fonts ──────────────────────────────────────────────────────── */
-  --font-sans: var(--font-roboto), system-ui, sans-serif;
+  --font-sans:  var(--font-inter), system-ui, sans-serif;
+  --font-mono:  var(--font-jetbrains), "Courier New", monospace;
 
-  /* ── Color palette (from PRD §5.2) ─────────────────────────────── */
-  --color-bg:          #0B0714;   /* page background — blackish purple  */
-  --color-surface:     #140E22;   /* cards                              */
-  --color-surface-2:   #1C1330;   /* chips, inputs, image placeholders  */
-  --color-border:      #2A1F45;   /* card and input borders             */
-  --color-text:        #EDE9F7;   /* primary text                       */
-  --color-muted:       #A79CC4;   /* secondary text                     */
-  --color-faint:       #6F6490;   /* captions, footer text              */
-  --color-accent:      #8B5CF6;   /* links, underlines, active states   */
-  --color-accent-soft: #A78BFA;   /* role label, link hover             */
-  --color-blob:        #5B2FC9;   /* circle behind buttons (use at 75%) */
+  /* ── Color palette ──────────────────────────────────────────────── */
+  --color-bg:          #0A0A0F;   /* page background — near-black                */
+  --color-surface:     #12121A;   /* cards                                       */
+  --color-surface-2:   #1A1A25;   /* chips, inputs, image placeholders           */
+  --color-border:      #262633;   /* card and input borders                      */
+  --color-text:        #F2F2F7;   /* primary text                                */
+  --color-muted:       #A1A1B5;   /* secondary text                              */
+  --color-faint:       #8585A0;   /* captions, footer text                       */
+  --color-accent:      #6C47FF;   /* fills: buttons, active underlines           */
+  --color-accent-soft: #A594FF;   /* text: links, hover, active states           */
+  --color-success:     #34D399;   /* "Open to work" dot + form success ONLY      */
+  --color-danger:      #F87171;   /* form errors ONLY                            */
 
   /* ── Border radius ──────────────────────────────────────────────── */
   --radius-card: 14px;
@@ -29,7 +31,8 @@
 
 /* ─── CSS custom properties (also usable outside Tailwind) ─────────── */
 :root {
-  --font-roboto: "Roboto", system-ui, sans-serif;
+  --font-inter:      "Inter", system-ui, sans-serif;
+  --font-jetbrains:  "JetBrains Mono", "Courier New", monospace;
   color-scheme: dark;             /* tells the browser: always dark mode */
 }
 
@@ -40,20 +43,22 @@
   }
 
   body {
-    background-color: #0B0714;      /* --color-bg */
-    color: #EDE9F7;                 /* --color-text */
-    font-family: var(--font-roboto), system-ui, sans-serif;
-    font-size: 1rem;                /* 16px — PRD §5.3 */
-    line-height: 1.6;               /* PRD §5.3 */
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 1rem;                /* 16px */
+    line-height: 1.6;
     font-weight: 400;
     min-height: 100dvh;
+    /* Extra bottom padding for the mobile sticky action bar */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;             /* no horizontal scroll at any width  */
   }
 
   :focus-visible {
-    outline: 2px solid #8B5CF6;    /* --color-accent */
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 4px;
   }

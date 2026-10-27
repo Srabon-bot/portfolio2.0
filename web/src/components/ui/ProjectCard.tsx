@@ -34,8 +34,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       className="flex flex-col h-full rounded-2xl overflow-hidden transition-colors"
       style={{
-        background: "var(--color-surface, #140E22)",
-        border: `1px solid ${isPlaceholder ? "rgba(42,31,69,0.5)" : "var(--color-border, #2A1F45)"}`,
+        background: "var(--color-surface)",
+        border: `1px solid ${isPlaceholder ? "rgba(42,31,69,0.5)" : "var(--color-border)"}`,
         opacity: isPlaceholder ? 0.55 : 1,
       }}
     >
@@ -44,7 +44,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         className="relative w-full"
         style={{
           aspectRatio: "16/9",
-          background: "var(--color-surface-2, #1C1330)",
+          background: "var(--color-surface-2)",
         }}
       >
         {project.coverImage ? (

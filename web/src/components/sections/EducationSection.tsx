@@ -31,7 +31,7 @@ export function EducationSection() {
          * surface bg, 1px border, radius-card, subtle hover lift.
          */}
         <div
-          className="rounded-2xl p-5 md:p-8 transition-all duration-300 hover:border-violet-500/40"
+          className="rounded-2xl p-5 md:p-8 transition-all duration-300 hover:border-accent/40"
           style={{
             background:  "var(--color-surface)",
             border:      "1px solid var(--color-border)",

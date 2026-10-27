@@ -35,10 +35,10 @@ export function Chip({
 
   return (
     <span
-      className={`inline-flex items-center font-medium rounded-full text-muted transition-all duration-200 hover:border-violet-500/40 hover:text-text ${sizeClasses} ${className}`}
+      className={`inline-flex items-center font-medium rounded-full text-muted transition-all duration-200 hover:border-accent/40 hover:text-text ${sizeClasses} ${className}`}
       style={{
-        background: "var(--color-surface-2, #1C1330)",
-        border: "1px solid var(--color-border, #2A1F45)",
+        background: "var(--color-surface-2)",
+        border: "1px solid var(--color-border)",
       }}
     >
       {showIcon && !isCountBadge && <TechIcon name={label} size={iconSize} />}

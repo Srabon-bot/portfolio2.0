@@ -138,7 +138,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
           {contactLinks.map((link) => (
             <div
               key={link.label}
-              className="rounded-xl p-4 flex items-center gap-4 transition-all duration-300 hover:border-violet-500/40"
+              className="rounded-xl p-4 flex items-center gap-4 transition-all duration-300 hover:border-accent/40"
               style={{
                 background: "var(--color-surface)",
                 border: "1px solid var(--color-border)",

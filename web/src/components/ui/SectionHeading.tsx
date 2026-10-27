@@ -24,7 +24,7 @@ export function SectionHeading({ title, subtitle, id }: SectionHeadingProps) {
         style={{
           width: "34px",
           height: "3px",
-          background: "var(--color-accent, #8B5CF6)",
+          background: "var(--color-accent)",
           borderRadius: "2px",
           marginTop: "8px",
         }}

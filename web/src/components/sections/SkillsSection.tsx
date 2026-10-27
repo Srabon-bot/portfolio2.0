@@ -33,7 +33,7 @@ function groupSkills(skills: Skill[]): SkillGroups {
 function SkillCard({ title, skills }: { title: string; skills: Skill[] }) {
   return (
     <div
-      className="rounded-2xl p-5 md:p-6 flex flex-col gap-4 h-full transition-all duration-300 hover:border-violet-500/40"
+      className="rounded-2xl p-5 md:p-6 flex flex-col gap-4 h-full transition-all duration-300 hover:border-accent/40"
       style={{
         background: "var(--color-surface)",
         border: "1px solid var(--color-border)",

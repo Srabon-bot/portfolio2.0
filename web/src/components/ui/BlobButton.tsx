@@ -35,7 +35,7 @@ export function BlobButton({
     <motion.span
       className={`relative inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-semibold text-white cursor-pointer select-none transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${className}`}
       style={{
-        background: "var(--color-accent, #8B5CF6)",
+        background: "var(--color-accent)",
       }}
     >
       {children}

@@ -101,8 +101,8 @@ export function TopBar({ profile }: TopBarProps) {
     <header
       className="sticky top-0 z-50 w-full"
       style={{
-        background:   "var(--color-bg, #0B0714)",
-        borderBottom: "1px solid var(--color-border, #2A1F45)",
+        background:   "var(--color-bg)",
+        borderBottom: "1px solid var(--color-border)",
       }}
     >
       {/* ── Desktop / tablet bar ─────────────────────────────────────── */}
@@ -126,11 +126,11 @@ export function TopBar({ profile }: TopBarProps) {
               fontWeight:    800,
               fontSize:      "1.15rem",
               letterSpacing: "0.18em",
-              color:         "var(--color-text, #EDE9F7)",
+              color:         "var(--color-text)",
               transition:    "color 0.2s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent-soft, #A78BFA)")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text, #EDE9F7)")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent-soft)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text)")}
           >
             SRABON
           </Link>
@@ -194,8 +194,8 @@ export function TopBar({ profile }: TopBarProps) {
           aria-label="Navigation menu"
           className="md:hidden flex flex-col px-6 py-5 gap-4"
           style={{
-            background:   "var(--color-surface, #140E22)",
-            borderTop:    "1px solid var(--color-border, #2A1F45)",
+            background:   "var(--color-surface)",
+            borderTop:    "1px solid var(--color-border)",
           }}
         >
           {/* Section links */}
