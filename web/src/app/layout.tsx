@@ -37,19 +37,39 @@ const syne = Syne({
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://srabon-portfolio.vercel.app";
 
 /* Default SEO metadata — individual pages can override these */
+/* Default SEO metadata — hiring-ready configuration */
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),   /* fixes the Next.js metadataBase warning */
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Srabon — Full-Stack Developer",
-    template: "%s | Srabon",   /* e.g. "About | Srabon" on other pages */
+    template: "%s | Srabon",
   },
   description:
-    "Full-stack developer (MERN · Next.js · TypeScript) building web apps that solve real problems for people in Bangladesh.",
+    "Full-stack developer (MERN · Next.js · TypeScript) building web apps that solve real problems. Specializing in offline-first systems, performant APIs, and accessible interfaces.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
-    siteName: "Srabon's Portfolio",
+    siteName: "Srabon — Full-Stack Developer",
+    title: "Srabon — Full-Stack Developer",
+    description:
+      "Full-stack developer (MERN · Next.js · TypeScript) building web apps that solve real problems. Specializing in offline-first systems and performant APIs.",
+    images: [
+      {
+        url: "/og.png", // TODO: Replace placeholder OG image with custom branded banner
+        width: 1200,
+        height: 630,
+        alt: "Srabon — Full-Stack Developer Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Srabon — Full-Stack Developer",
+    description:
+      "Full-stack developer (MERN · Next.js · TypeScript) building web apps that solve real problems.",
+    images: ["/og.png"],
+    creator: "@srabon_dev",
   },
   robots: {
     index: true,
